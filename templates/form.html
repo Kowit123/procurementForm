@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Procurement Document Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    
+    <div class="container">
+        <h1>Procurement Document Generator</h1>
+        <p>Fill out the form below to generate procurement documents.</p>
+
+        <!-- This form will be fully implemented in task 3.1 -->
+        <form id="procurementForm" action="/generate" method="post">
+            <!-- Basic form structure to be expanded in task 3.1 -->
+            <div class="form-group">
+                <label for="requester_name">Requester Name</label>
+                <input type="text" id="requester_name" name="requester_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="document_format">Document Format</label>
+                <select id="document_format" name="document_format">
+                    <option value="docx">DOCX</option>
+                    <option value="pdf">PDF</option>
+                </select>
+            </div>
+
+            <button type="submit">Generate Document</button>
+        </form>
+    </div>
+
+    <script>
+        // Improved form validation for task 3.2
+        document.getElementById('procurementForm').addEventListener('submit', function (event) {
+            // Get all required inputs
+            const requiredInputs = document.querySelectorAll('#procurementForm [required]');
+            let isValid = true;
+            let errorMessage = '';
+
+            // Check each required field
+            requiredInputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    errorMessage += `Please enter ${input.labels[0].textContent}.\n`;
+                    input.classList.add('error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                event.preventDefault();
+                alert(errorMessage);
+            }
+        });
+
+        // Real-time validation feedback
+        document.querySelectorAll('#procurementForm [required]').forEach(function (input) {
+            input.addEventListener('blur', function () {
+                if (!this.value.trim()) {
+                    this.classList.add('error');
+                } else {
+                    this.classList.remove('error');
+                }
+            });
+
+            // Remove error class when user starts typing
+            input.addEventListener('input', function () {
+                if (this.value.trim()) {
+                    this.classList.remove('error');
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
