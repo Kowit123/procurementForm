@@ -9,18 +9,111 @@ body {
     margin: 0;
     padding: 20px;
     color: #333;
+    background-color: #dededd;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    background-color: #f0f2f5;
+    border: 1px solid #adadad;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.19), 0 2px 6px rgba(0, 0, 0, 0.23);
 }
 
-h1, h2, h3 {
+/* Section box styles */
+.form-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.section-box {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.19), 0 2px 6px rgba(0, 0, 0, 0.23);
+    padding: 25px;
+    margin-bottom: 5px;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    border: none;
+}
+
+.section-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.22);
+}
+
+.section-box h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+h1,
+h2,
+h3 {
     color: #0056b3;
+}
+
+/* Header section with button and title */
+.header-section {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.title-section {
+    text-align: center;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.sub-title {
+    color: gray;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+/* Example document section styling - positioned to the left */
+.example-document-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.example-doc-button {
+    background-color: #17a2b8 !important;
+    color: white;
+    width: 12rem;
+    height: 3rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 15;
+}
+
+.example-doc-button:hover {
+    background-color: #138496 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .form-group {
@@ -33,10 +126,11 @@ label {
     font-weight: bold;
 }
 
-input, select, textarea {
+input,
+select {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #adadad;
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -54,15 +148,230 @@ button:hover {
     background-color: #003d7a;
 }
 
+/* Error styling for inputs */
+input.error {
+    border-color: #dc3545 !important;
+    background-color: #fff5f5;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+input.error:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
 .error {
     color: red;
     font-size: 0.9em;
     margin-top: 5px;
 }
 
+/* required class color*/
+.required {
+    color: red;
+}
+
+/*add top margin to ขออนุมัติเพื่อ*/
+.requesting-for {
+    margin-top: 10px;
+}
+/* Supply list table styles */
+.supply-list-container {
+    padding: 0;
+    background-color: transparent;
+}
+
+.supply-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    table-layout: fixed;
+}
+
+.supply-list-table th,
+.supply-list-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.supply-list-table th {
+    background-color: #e9f0f8;
+    font-weight: bold;
+}
+
+/* Column width adjustments */
+.supply-list-table th:nth-child(1),
+.supply-list-table td:nth-child(1) {
+    width: 50%;
+    text-align: left;
+}
+
+.supply-list-table th:nth-child(2),
+.supply-list-table td:nth-child(2) {
+    width: 10%;
+}
+
+.supply-list-table th:nth-child(3),
+.supply-list-table td:nth-child(3) {
+    width: 12%;
+}
+
+.supply-list-table th:nth-child(4),
+.supply-list-table td:nth-child(4) {
+    width: 12%;
+}
+
+.supply-list-table th:nth-child(5),
+.supply-list-table td:nth-child(5) {
+    width: 20%;
+}
+
+.supply-list-table th:nth-child(6),
+.supply-list-table td:nth-child(6) {
+    width: 20%;
+}
+
+.supply-list-table input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.supply-list-table input[type="radio"] {
+    width: auto;
+}
+
+.radio-cell {
+    text-align: center;
+}
+
+.add-button {
+    background-color: #0078e2;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.add-button:hover {
+    background-color: #006bc9;
+}
+
+.dellete-button {
+    background-color: #e20b00;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.dellete-button:hover {
+    background-color: #c92500;
+}
+
+.total-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e9f0f8;
+    border-radius: 4px;
+    gap: 15px;
+}
+
+.total-supply-amount {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.total-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.total-amount {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.form-footer {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.19), 0 2px 6px rgba(0, 0, 0, 0.23);
+    padding: 25px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+}
+
+.form-footer .form-group {
+    flex: 1;
+    margin-bottom: 0;
+    margin-right: 20px;
+}
+
+.form-footer button {
+    min-width: 180px;
+}
+
+.manual-button {
+    background-color: rgb(2, 108, 25) !important;
+    width: 10rem;
+    height: 3rem;
+}
+
+.manual-button:hover {
+    background-color: rgb(0, 99, 31) !important;
+}
+.preview-button {
+    background-color: #800 !important;
+    width: 10rem;
+    height: 3rem;
+    margin-right: 1rem;
+}
+
+.preview-button:hover {
+    background-color: #600 !important;
+}
+
+.generate-button {
+    background-color: rgb(6, 91, 209) !important;
+    width: 10rem;
+    height: 3rem;
+}
+
+.generate-button:hover {
+    background-color: rgb(4, 70, 160) !important;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
+    }
+
+    .supply-list-table {
+        font-size: 0.9em;
+    }
+
+    .supply-list-table th,
+    .supply-list-table td {
+        padding: 5px;
+    }
+
+    .form-footer {
+        flex-direction: column;
+    }
+
+    .form-footer .form-group {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: 100%;
     }
 }

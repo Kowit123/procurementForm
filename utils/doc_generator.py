@@ -34,8 +34,7 @@ class DocumentGenerator:
         Returns:
             BytesIO: In-memory file-like object containing the generated document
         """
-        # This will be implemented in task 4.3
-        pass
+        raise NotImplementedError("This feature will be implemented in task 4.3")
     
     def generate_pdf(self, data):
         """
@@ -48,5 +47,4 @@ class DocumentGenerator:
         Returns:
             BytesIO: In-memory file-like object containing the generated document
         """
-        # This will be implemented in tasks 4.4 and 4.5
-        pass
+        raise NotImplementedError("This feature will be implemented in tasks 4.4 and 4.5")

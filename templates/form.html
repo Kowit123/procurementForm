@@ -6,31 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procurement Document Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') if url_for is defined else '../static/style.css' }}">
 </head>
 
 <body>
     <div class="container">
-        <h1>Procurement Document Generator</h1>
-        <p>Fill out the form below to generate procurement documents.</p>
+        <div class="header-section">
+            <div class="example-document-section">
+                <button type="button" id="exampleDocBtn" class="example-doc-button">📄 ตัวอย่างเอกสาร</button>
+            </div>
+            <div class="title-section">
+                <h1 class="page-title">เอกสารขออนุมัติจัดซื้อจัดจ้าง</h1>
+                <h3 class="sub-title">ระบบสร้างเอกสารเพื่อใช้ในการขออนุมัติจัดซื้อจัดจ้าง</h3>
+            </div>
+        </div>
 
-        <!-- This form will be fully implemented in task 3.1 -->
         <form id="procurementForm" action="/generate" method="post">
-            <!-- Basic form structure to be expanded in task 3.1 -->
-            <div class="form-group">
-                <label for="requester_name">Requester Name</label>
-                <input type="text" id="requester_name" name="requester_name" required>
+            <div class="form-sections">
+                <!--section1-->
+                <div class="form-section section-box">
+                    <h3>ข้อมูลผู้ขอให้จัดหา</h3>
+                    <div class="responsible-person">
+                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span
+                                class="required">*</span></label>
+                        <input type="text" id="responsible_person" name="responsible_person" required>
+                        <label for="responsible_committee_member1">กรรมการ (ถ้ามี)</label>
+                        <input type="text" id="responsible_committee_member1" name="responsible_committee_member1">
+                        <label for="responsible_committee_member2">กรรมการ (ถ้ามี)</label>
+                        <input type="text" id="responsible_committee_member2" name="responsible_committee_member2">
+                        <div class="requesting-for">
+                            <label for="requesting_for">ขออนุมัติเพื่อ <span class="required">*</span></label>
+                            <input type="text" id="requesting_for" name="requesting_for" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!--section2-->
+                <div class="form-section section-box">
+                    <h3>ข้อมูลผู้ตรวจรับพัสดุ</h3>
+                    <div class="inspector">
+                        <label for="inspector">รายชื่อผู้ตรวจรับพัสดุ/ประธานกรรมการ <span
+                                class="required">*</span></label>
+                        <input type="text" id="inspector" name="inspector" required>
+                        <label for="inspector_committee_member1">กรรมการ (ถ้ามี)</label>
+                        <input type="text" id="inspector_committee_member1" name="inspector_committee_member1">
+                        <label for="inspector_committee_member2">กรรมการ (ถ้ามี)</label>
+                        <input type="text" id="inspector_committee_member2" name="inspector_committee_member2">
+                    </div>
+                </div>
+
+                <!--section3-->
+                <div class="form-section section-box">
+                    <h3>รายการวัสดุ</h3>
+                    <div class="supply-list-container">
+                        <table class="supply-list-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">รายการวัสดุ/งานจ้าง</th>
+                                    <th rowspan="2">จำนวน</th>
+                                    <th rowspan="2">ราคาต่อหน่วย</th>
+                                    <th rowspan="2">รวม</th>
+                                    <th colspan="2">พัสดุผลิตที่</th>
+                                </tr>
+                                <tr>
+                                    <th>ประเทศไทย</th>
+                                    <th>ต่างประเทศ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="supply-item">
+                                    <td><input type="text" name="supply_name[]" required></td>
+                                    <td><input type="text" name="supply_amount[]" min="1" required></td>
+                                    <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" required>
+                                    </td>
+                                    <td><input type="text" name="sum_supply_price[]" readonly></td>
+                                    <td class="radio-cell"><input type="radio" name="product_origin_1" value="domestic">
+                                    </td>
+                                    <td class="radio-cell"><input type="radio" name="product_origin_1" value="foreign">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" id="addSupplyRow" class="add-button">+ เพิ่มรายการ</button>
+                        <button type="button" id="deleteSupplyRow" class="dellete-button" title="ลบรายการ">-
+                            ลบรายการ</button>
+                        <div class="total-section">
+                            <div class="total-supply-amount">จำนวนรายการ:</div>
+                            <div class="total-supply-amount"><span id="totalItems">0</span> รายการ</div>
+                            <div class="total-label">ราคารวมทั้งสิ้น:</div>
+                            <div class="total-amount"><span id="grandTotal">0.00</span> บาท</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="document_format">Document Format</label>
-                <select id="document_format" name="document_format">
-                    <option value="docx">DOCX</option>
-                    <option value="pdf">PDF</option>
-                </select>
+            <!-- <div class="form-footer">
+                <div class="form-group">
+                    <label for="document_format">Document Format</label>
+                    <select id="document_format" name="document_format">
+                        <option value="docx">DOCX</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+
+                <button type="submit">Generate Document</button>
+            </div> -->
+
+            <div class="form-footer">
+                <button type="submit" class="manual-button">คู่มือการใช้งาน</button>
+                <div>
+                    <button type="button" id="previewBtn" class="preview-button">Generate PDF</button>
+                    <button type="submit" class="generate-button">Generate Document</button>
+                </div>
             </div>
 
-            <button type="submit">Generate Document</button>
         </form>
     </div>
 
@@ -46,7 +136,8 @@
             requiredInputs.forEach(function (input) {
                 if (!input.value.trim()) {
                     isValid = false;
-                    errorMessage += `Please enter ${input.labels[0].textContent}.\n`;
+                    const label = input.previousElementSibling?.textContent || input.closest('td')?.previousElementSibling?.textContent || 'required field';
+                    errorMessage += `กรุณากรอก ${label.replace('*', '').trim()}\n`;
                     input.classList.add('error');
                 } else {
                     input.classList.remove('error');
@@ -77,7 +168,51 @@
                 }
             });
         });
+
+        // Example document button functionality
+        document.getElementById('exampleDocBtn').addEventListener('click', function () {
+            // Open example document PDF in new tab
+            window.open('/public/example-document.pdf', '_blank');
+        });
+
+        // Preview button functionality
+        document.getElementById('previewBtn').addEventListener('click', function () {
+            // Validate form before preview
+            const requiredInputs = document.querySelectorAll('#procurementForm [required]');
+            let isValid = true;
+
+            requiredInputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            if (!isValid) {
+                alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วนก่อนดูตัวอย่าง');
+                return;
+            }
+
+            // Create a temporary form for preview
+            const form = document.getElementById('procurementForm');
+            const originalAction = form.action;
+
+            // Change action to preview endpoint
+            form.action = '/preview';
+            form.target = '_blank';
+
+            // Submit form
+            form.submit();
+
+            // Restore original action
+            form.action = originalAction;
+            form.target = '';
+        });
     </script>
+    <script
+        src="{{ url_for('static', filename='supply-list.js') if url_for is defined else '../static/supply-list.js' }}"></script>
 </body>
 
 </html>

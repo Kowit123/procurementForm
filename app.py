@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request, send_file, jsonify
+from flask import Flask, render_template, jsonify, send_from_directory
 import os
-from io import BytesIO
 
 app = Flask(__name__)
 
@@ -26,6 +25,11 @@ def download_document(format):
     """
     # This will be implemented in task 5.4
     return jsonify({"status": "Not implemented yet"})
+
+@app.route('/public/<filename>')
+def serve_public_file(filename):
+    """Serve files from the public directory."""
+    return send_from_directory('public', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

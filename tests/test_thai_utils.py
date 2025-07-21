@@ -13,12 +13,12 @@ from utils.thai_utils import num_to_thai_text, gregorian_to_buddhist_era
 from datetime import datetime
 
 # These tests will be implemented in tasks 2.1 and 2.2
+@pytest.mark.skip(reason="Will be implemented in task 2.1")
 def test_num_to_thai_text():
     """Test the conversion of numbers to Thai text."""
-    # This will be implemented in task 2.1
-    pass
+    pytest.skip("This test will be implemented in task 2.1")
 
+@pytest.mark.skip(reason="Will be implemented in task 2.2")
 def test_gregorian_to_buddhist_era():
     """Test the conversion of Gregorian dates to Buddhist Era."""
-    # This will be implemented in task 2.2
-    pass
+    pytest.skip("This test will be implemented in task 2.2")

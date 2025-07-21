@@ -19,8 +19,7 @@ def num_to_thai_text(number):
     Returns:
         str: Thai text representation of the number
     """
-    # This will be implemented in task 2.1
-    pass
+    raise NotImplementedError("This feature will be implemented in task 2.1")
 
 def gregorian_to_buddhist_era(date):
     """
@@ -35,5 +34,4 @@ def gregorian_to_buddhist_era(date):
     Returns:
         datetime: Date with year in Buddhist Era
     """
-    # This will be implemented in task 2.2
-    pass
+    raise NotImplementedError("This feature will be implemented in task 2.2")
