@@ -36,5 +36,10 @@ def load_font(filename):
     """Serve font files from the static/font directory."""
     return send_from_directory('static/font', filename)
 
+@app.route('/static/img/<filename>')
+def load_img(filename):
+    """Serve img files from the static/img directory."""
+    return send_from_directory('static/img', filename)
+
 if __name__ == '__main__':
     app.run(debug=True)

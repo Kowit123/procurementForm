@@ -77,7 +77,7 @@ function createPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({
         orientation: 'portrait',
-        unit: 'mm',
+        unit: 'cm',
         format: 'a4'
     });
     // Set font for Thai language support
@@ -85,8 +85,31 @@ function createPDF() {
     doc.addFont('THSarabunNew-normal.ttf', 'THSarabunNew', 'normal');
     doc.addFileToVFS('THSarabunNew-bold.ttf', THSarabunNew_bold);
     doc.addFont('THSarabunNew-bold.ttf', 'THSarabunNew', 'bold');
-    doc.setFont("THSarabunNew");
+    // set img
+    const img = document.getElementById("img");
+      
+    // สร้าง canvas เพื่อแปลงภาพเป็น base64
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    const imgData = canvas.toDataURL("{{ url_for('static', filename='img/krut.jpg') if url_for is defined else '../static/img/krut.jpg' }}");
 
-    // Save the PDF
-    doc.save('procurement-document.pdf');
+    //get page width
+    const pageWidth = doc.internal.pageSize.getWidth();
+    // Add content to the PDF
+    //header
+    doc.addImage(imgData, 'jpg', 2, 1, 1, 1.1); // (imageData, type, x, y, width, height)
+    doc.setFont("THSarabunNew", "normal");
+    doc.setFontSize(12);
+    doc.text('EN-PS-01', pageWidth-2, 0.5, { align: 'center' });
+    doc.setFont("THSarabunNew", "bold");
+    doc.setFontSize(16);
+    doc.text('บันทึกข้อความ', pageWidth/2, 2, { align: 'center' });
+
+    // use blob to preview pdf before download
+    const pdfBlob = doc.output("blob");
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    window.open(blobUrl, "_blank");
 }
