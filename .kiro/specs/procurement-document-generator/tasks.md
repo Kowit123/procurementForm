@@ -1,9 +1,7 @@
 # Implementation Plan
 
 - [ ] 0. Issues and Bugs
-  - [x] 0.1 Fix existing issues in the codebase
-
-
+  - [ ] 0.1 Fix existing issues in the codebase
     - Fix radio button selection in supply items (currently not checked by default)
     - Add missing date input field in the form(get current date instead)
     - Fix preview functionality (currently submits to a non-existent '/preview' endpoint)(I will add this feature after create pdf format)

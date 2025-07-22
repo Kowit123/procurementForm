@@ -1,0 +1,23 @@
+[33mcommit 0149a266aad5f7ff88895eafcaf5269e22b3e200[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m)[m
+Author: Kowit An-chean <kowitanchean238@gmail.com>
+Date:   Tue Jul 22 08:51:13 2025 +0700
+
+    fix delete typo, fix radio defult checked, rewrite design and task base on currently UI
+
+[33mcommit 28cb53240d1803ad5cac0534588d2966b917db03[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Kowit An-chean <kowitanchean238@gmail.com>
+Date:   Mon Jul 21 16:33:44 2025 +0700
+
+    create_UI, create_dynamic_supply_table, creat_calcalate_supply_table, add_input_to_number_in_supply_table
+
+[33mcommit e540070c12ccc0d82ee5a215d6c5826d6af071cc[m
+Author: Kowit An-chean <kowitanchean238@gmail.com>
+Date:   Fri Jul 18 15:13:24 2025 +0700
+
+    Set up project structure and dependencies
+
+[33mcommit b664ef4f90393b8b511443904707890d1ca31478[m
+Author: Kowit An-chean <kowitanchean238@gmail.com>
+Date:   Fri Jul 18 11:10:28 2025 +0700
+
+    set up file/folder architecture

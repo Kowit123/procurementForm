@@ -24,15 +24,14 @@
 
         <form id="procurementForm" action="/generate" method="post">
             <!-- Hidden input for current date in Thai Buddhist Era format -->
-            <input type="hidden" id="current_date" name="current_date">
-            
+            <!-- <input type="hidden" id="current_date" name="current_date"> -->
+
             <div class="form-sections">
                 <!--section1-->
                 <div class="form-section section-box">
                     <h3>ข้อมูลผู้ขอให้จัดหา</h3>
                     <div class="responsible-person">
-                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span
-                                class="required">*</span></label>
+                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <spanclass="required">*</span></label>
                         <input type="text" id="responsible_person" name="responsible_person" required>
                         <label for="responsible_committee_member1">กรรมการ (ถ้ามี)</label>
                         <input type="text" id="responsible_committee_member1" name="responsible_committee_member1">
@@ -135,27 +134,27 @@
                 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
                 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
             ];
-            
+
             // Convert to Buddhist Era (BE = CE + 543)
             const day = date.getDate();
             const month = thaiMonths[date.getMonth()];
             const year = date.getFullYear() + 543; // Convert to Buddhist Era
-            
+
             // Format: วันที่ DD เดือน MMMM พ.ศ. YYYY
             return `วันที่ ${day} เดือน ${month} พ.ศ. ${year}`;
         }
-        
+
         // Set current date in Thai Buddhist Era format when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const currentDate = new Date();
             const thaiDate = convertToThaiDate(currentDate);
             document.getElementById('current_date').value = thaiDate;
-            
+
             // Display current date in the form (optional)
             const dateInfoDiv = document.createElement('div');
             dateInfoDiv.className = 'date-info';
             dateInfoDiv.innerHTML = `<span>วันที่ปัจจุบัน: ${thaiDate}</span>`;
-            
+
             // Insert after the title section
             const titleSection = document.querySelector('.title-section');
             titleSection.parentNode.insertBefore(dateInfoDiv, titleSection.nextSibling);
