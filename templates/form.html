@@ -31,7 +31,8 @@
                 <div class="form-section section-box">
                     <h3>ข้อมูลผู้ขอให้จัดหา</h3>
                     <div class="responsible-person">
-                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span class="required">*</span></label>
+                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span
+                                class="required">*</span></label>
                         <input type="text" id="responsible_person" name="responsible_person" required>
                         <label for="responsible_committee_member1">กรรมการ (ถ้ามี)</label>
                         <input type="text" id="responsible_committee_member1" name="responsible_committee_member1">
@@ -83,7 +84,8 @@
                                     <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" required>
                                     </td>
                                     <td><input type="text" name="sum_supply_price[]" readonly></td>
-                                    <td class="radio-cell"><input type="radio" name="product_origin_1" value="domestic" checked>
+                                    <td class="radio-cell"><input type="radio" name="product_origin_1" value="domestic"
+                                            checked>
                                     </td>
                                     <td class="radio-cell"><input type="radio" name="product_origin_1" value="foreign">
                                     </td>
@@ -150,7 +152,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const currentDate = new Date();
             const thaiDate = convertToThaiDate(currentDate);
-            
+
             // Create hidden input for current date if it doesn't exist
             let currentDateInput = document.getElementById('current_date');
             if (!currentDateInput) {
@@ -160,10 +162,10 @@
                 currentDateInput.name = 'current_date';
                 document.getElementById('procurementForm').appendChild(currentDateInput);
             }
-            
+
             // Set the value of the hidden input field for use in document generation
             currentDateInput.value = thaiDate;
-            
+
             // Note: Date display in UI has been removed as per requirements
             // The date will only be used for document generation
         });
@@ -256,6 +258,12 @@
     </script>
     <script
         src="{{ url_for('static', filename='supply-list.js') if url_for is defined else '../static/supply-list.js' }}"></script>
+    <script
+        src="{{ url_for('static', filename='jspdf.min.js') if url_for is defined else '../static/jspdf.min.js' }}"></script>
+    <script
+        src="{{ url_for('static', filename='jspdf.plugin.autotable.min.js') if url_for is defined else '../static/jspdf.plugin.autotable.min.js' }}"></script>
+    <script
+        src="{{ url_for('static', filename='pdf-generator.js') if url_for is defined else '../static/pdf-generator.js' }}"></script>
 </body>
 
 </html>
