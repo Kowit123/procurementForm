@@ -16,7 +16,7 @@ The system will be built using:
 - **Flask**: A lightweight Python web framework for handling HTTP requests and responses
 - **Python-docx**: A Python library for creating and updating Microsoft Word (.docx) files
 - **WeasyPrint** or **docx2pdf**: For converting .docx files to PDF format when requested
-- **JavaScript/jQuery**: For client-side form validation and dynamic form elements
+- **JavaScript**: For client-side form validation and dynamic form elements
 - **HTML/CSS**: For the user interface
 
 ### System Architecture Diagram
@@ -37,27 +37,28 @@ graph TD
 
 ### 1. Web Interface (View)
 
-The web interface will consist of:
+The web interface consists of:
 
 - **Form Page**: HTML form with fields for all required procurement information
 - **Result Page**: Page displaying download links for generated documents
 
 #### Form Components:
-- Input fields for procurement details (text inputs, dropdowns, date pickers)
+- Input fields for procurement details (text inputs)
 - Dynamic form sections for adding multiple procurement items
 - Client-side validation using JavaScript
 - Form submission button
-- Format selection (DOCX/PDF)
+- Preview and Generate Document buttons
 
 ### 2. Controller
 
-The controller will be implemented in Flask and will handle:
+The controller is implemented in Flask and handles:
 
 - Routing HTTP requests
 - Processing form submissions
 - Validating input data
 - Initiating document generation
 - Serving generated documents for download
+- Serving static files from the public directory
 
 ### 3. Document Generator (Model)
 
@@ -72,7 +73,7 @@ The document generator will:
 
 ## Data Models
 
-Since the system is stateless with no database, we'll define data structures that will be used in-memory during processing:
+Since the system is stateless with no database, we define data structures that will be used in-memory during processing:
 
 ### ProcurementData
 
@@ -81,26 +82,24 @@ class ProcurementData:
     """Data structure to hold procurement form data."""
     
     def __init__(self):
-        # Basic procurement information
-        self.date = None  # Date in Buddhist Era
-        self.requester_name = ""  # Name of who requests
+        # Requester information
+        self.responsible_person = ""  # Main requester/committee chair
+        self.responsible_committee_member1 = ""  # Optional committee member
+        self.responsible_committee_member2 = ""  # Optional committee member
+        self.requesting_for = ""  # Purpose of procurement
         
-        # Supply information
-        self.supply_amount = 0  # Amount of supply
+        # Inspector information
+        self.inspector = ""  # Main inspector/committee chair
+        self.inspector_committee_member1 = ""  # Optional committee member
+        self.inspector_committee_member2 = ""  # Optional committee member
         
-        # Cost information
-        self.cost_number = 0.0  # Numeric cost
-        self.cost_text_thai = ""  # Thai text representation of cost
-        
-        # Purpose information
-        self.objective = ""  # Objective/purpose of procurement
-        
-        # Committee information (optional)
-        self.committee_member1 = ""  # First committee member (if any)
-        self.committee_member2 = ""  # Second committee member (if any)
-        
-        # Items to be procured
+        # Supply items
         self.items = []  # List of ProcurementItem objects
+        
+        # Totals
+        self.total_items = 0  # Total number of items
+        self.grand_total = 0.0  # Total cost
+        self.grand_total_text_thai = ""  # Thai text representation of total cost
 ```
 
 ### ProcurementItem
@@ -110,22 +109,22 @@ class ProcurementItem:
     """Data structure to hold information about each procurement item."""
     
     def __init__(self):
-        self.item_number = 0
-        self.description = ""
-        self.quantity = 0
-        self.unit = ""
-        self.price_per_unit = 0.0
-        self.total_price = 0.0
+        self.name = ""  # Item name/description
+        self.amount = 0  # Quantity
+        self.price_per_unit = 0.0  # Unit price
+        self.total_price = 0.0  # Total price (amount * price_per_unit)
+        self.is_domestic = True  # Whether the item is produced domestically
 ```
 
 ## Error Handling
 
-The system will implement the following error handling strategies:
+The system implements the following error handling strategies:
 
 1. **Client-side Validation**:
    - Real-time validation of form fields
    - Prevention of form submission with invalid data
    - Clear error messages displayed next to problematic fields
+   - Visual feedback with red borders for invalid fields
 
 2. **Server-side Validation**:
    - Secondary validation of all form data
@@ -139,7 +138,7 @@ The system will implement the following error handling strategies:
 
 ## Testing Strategy
 
-The testing strategy will include:
+The testing strategy includes:
 
 1. **Unit Testing**:
    - Test individual components (form validation, data processing, document generation)
@@ -160,7 +159,7 @@ The testing strategy will include:
 
 ### Document Template Structure
 
-The document template will use the following placeholder format for easy replacement:
+The document template uses the following placeholder format for easy replacement:
 
 - Text placeholders: `{{placeholder_name}}`
 - Table row placeholders: Special markers for row repetition
@@ -170,7 +169,7 @@ The document template will use the following placeholder format for easy replace
 
 ### Thai Language and Buddhist Era Support
 
-- The system will support Thai language input and output
+- The system supports Thai language input and output
 - Date conversion between Gregorian and Buddhist Era calendars
 - Proper formatting of Thai numbers and currency
 - Thai text representation of numerical values
@@ -186,26 +185,27 @@ The document template will use the following placeholder format for easy replace
 
 ### Form Layout
 
-The form will be organized into logical sections:
+The form is organized into logical sections:
 
-1. **Basic Information**:
-   - Date (with Buddhist Era calendar)
-   - Requester name
+1. **Requester Information**:
+   - Main requester/committee chair (required)
+   - Committee members (optional)
+   - Purpose of procurement (required)
 
-2. **Supply Information**:
-   - Amount of supply
-   - Items details (if multiple items)
+2. **Inspector Information**:
+   - Main inspector/committee chair (required)
+   - Committee members (optional)
 
-3. **Cost Information**:
-   - Cost in numbers
-   - Cost in Thai text
+3. **Supply Items**:
+   - Dynamic table for adding multiple items
+   - Each item includes name, quantity, unit price, total price, and origin (domestic/foreign)
+   - Buttons to add and remove items
+   - Automatic calculation of totals
 
-4. **Purpose Information**:
-   - Objective of procurement
-
-5. **Committee Information** (Optional):
-   - Committee member 1
-   - Committee member 2
+4. **Form Actions**:
+   - User manual button
+   - Preview button for PDF preview
+   - Generate Document button for final document generation
 
 ### User Flow
 
@@ -216,14 +216,16 @@ graph TD
     C --> D{Valid?}
     D -->|No| E[Show Validation Errors]
     E --> C
-    D -->|Yes| F[Select Format]
-    F --> G[Generate Document]
-    G --> H[Download Document]
+    D -->|Yes| F[Preview or Generate]
+    F -->|Preview| G[View PDF Preview]
+    G --> C
+    F -->|Generate| H[Generate Document]
+    H --> I[Download Document]
 ```
 
 ## Thai Baht Text Conversion
 
-A special utility will be implemented to convert numerical values to Thai text representation for official documents:
+A special utility is implemented to convert numerical values to Thai text representation for official documents:
 
 ```python
 def num_to_thai_text(number):
@@ -241,7 +243,7 @@ def num_to_thai_text(number):
 
 ## Buddhist Era Date Conversion
 
-The system will include a utility to convert Gregorian calendar dates to Buddhist Era dates:
+The system includes a utility to convert Gregorian calendar dates to Buddhist Era dates:
 
 ```python
 def gregorian_to_buddhist_era(date):
@@ -254,4 +256,20 @@ def gregorian_to_buddhist_era(date):
     # - Proper Thai date formatting
     # - Thai month names
     pass
+```
+
+## Number Formatting
+
+The system includes utilities for formatting numbers with commas and validating numeric inputs:
+
+```javascript
+function formatNumberWithCommas(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function validateNumberInput(input) {
+    // Validate numeric input based on min, max, and step attributes
+    // Format with commas for display
+    // Show error messages for invalid inputs
+}
 ```

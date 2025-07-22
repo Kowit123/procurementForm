@@ -83,6 +83,21 @@ h3 {
     font-size: 1.2em;
 }
 
+/* Date info styling */
+.date-info {
+    text-align: right;
+    margin: 10px 0 20px;
+    font-size: 1em;
+    color: #0056b3;
+    font-weight: 500;
+    padding: 5px 10px;
+    background-color: #e9f0f8;
+    border-radius: 4px;
+    display: inline-block;
+    float: right;
+    clear: both;
+}
+
 /* Example document section styling - positioned to the left */
 .example-document-section {
     position: absolute;
@@ -259,7 +274,7 @@ input.error:focus {
     background-color: #006bc9;
 }
 
-.dellete-button {
+.delete-button {
     background-color: #e20b00;
     color: white;
     padding: 6px 12px;
@@ -267,7 +282,7 @@ input.error:focus {
     margin-bottom: 15px;
 }
 
-.dellete-button:hover {
+.delete-button:hover {
     background-color: #c92500;
 }
 

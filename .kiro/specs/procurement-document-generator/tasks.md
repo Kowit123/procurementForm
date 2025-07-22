@@ -1,5 +1,15 @@
 # Implementation Plan
 
+- [ ] 0. Issues and Bugs
+  - [x] 0.1 Fix existing issues in the codebase
+
+
+    - Fix radio button selection in supply items (currently not checked by default)
+    - Add missing date input field in the form(get current date instead)
+    - Fix preview functionality (currently submits to a non-existent '/preview' endpoint)(I will add this feature after create pdf format)
+    - Fix manual button functionality (currently submits the form instead of showing documentation)(I will add this feature after create pdf format)
+    - _Requirements: All_
+
 - [x] 1. Set up project structure and dependencies
   - Create a virtual environment for the project
   - Install required Python packages using pipenv
@@ -93,6 +103,11 @@
     - Create in-memory document generation and direct download
     - Ensure no data is stored on the server after the session ends
     - _Requirements: 3.3_
+  
+  - [ ] 5.6 Add preview functionality
+    - Create route for document preview
+    - Generate PDF preview without requiring download
+    - _Requirements: 2.4, 3.1_
 
 - [ ] 6. Testing and quality assurance
   - [ ] 6.1 Write unit tests for core functionality
@@ -116,6 +131,7 @@
   - [ ] 7.1 Create user documentation
     - Document form fields and requirements
     - Provide instructions for document generation
+    - Create user manual accessible from the form
     - _Requirements: All_
   
   - [ ] 7.2 Prepare deployment instructions
