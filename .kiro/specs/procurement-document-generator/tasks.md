@@ -36,7 +36,9 @@
     - _Requirements: 1.5, 2.5_
 
 - [ ] 3. Create the web form interface
-  - [ ] 3.1 Design the HTML form structure
+  - [x] 3.1 Design the HTML form structure
+
+
     - Create the basic HTML form with all required fields
     - Implement responsive design with CSS
     - _Requirements: 1.1_
