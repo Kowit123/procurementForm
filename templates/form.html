@@ -240,20 +240,6 @@
                 return;
             }
 
-            // Create a temporary form for preview
-            const form = document.getElementById('procurementForm');
-            const originalAction = form.action;
-
-            // Change action to preview endpoint
-            form.action = '/preview';
-            form.target = '_blank';
-
-            // Submit form
-            form.submit();
-
-            // Restore original action
-            form.action = originalAction;
-            form.target = '';
         });
     </script>
     <script
@@ -264,6 +250,10 @@
         src="{{ url_for('static', filename='jspdf.plugin.autotable.min.js') if url_for is defined else '../static/jspdf.plugin.autotable.min.js' }}"></script>
     <script
         src="{{ url_for('static', filename='pdf-generator.js') if url_for is defined else '../static/pdf-generator.js' }}"></script>
-</body>
+        <script
+        src="{{ url_for('static', filename='font/THSarabunNew-bold.js') if url_for is defined else '../static/font/THSarabunNew-bold.js' }}"></script>
+        <script
+        src="{{ url_for('static', filename='font/THSarabunNew-normal.js') if url_for is defined else '../static/font/THSarabunNew-normal.js' }}"></script>
+    </body>
 
 </html>

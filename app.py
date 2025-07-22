@@ -31,5 +31,10 @@ def serve_public_file(filename):
     """Serve files from the public directory."""
     return send_from_directory('public', filename)
 
+@app.route('/static/font/<filename>')
+def load_font(filename):
+    """Serve font files from the static/font directory."""
+    return send_from_directory('static/font', filename)
+
 if __name__ == '__main__':
     app.run(debug=True)
