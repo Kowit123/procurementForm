@@ -127,7 +127,8 @@
     </div>
 
     <script>
-        // Function to convert Gregorian date to Thai Buddhist Era format
+        // Function to convert Gregorian date to Thai Buddhist Era format for display only
+        // The server-side implementation in utils/thai_utils.py will be used for actual document generation
         function convertToThaiDate(date) {
             // Thai month names
             const thaiMonths = [
@@ -141,23 +142,30 @@
             const year = date.getFullYear() + 543; // Convert to Buddhist Era
 
             // Format: วันที่ DD เดือน MMMM พ.ศ. YYYY
-            return `วันที่ ${day} เดือน ${month} พ.ศ. ${year}`;
+            return `${day} ${month} พ.ศ. ${year}`;
         }
 
         // Set current date in Thai Buddhist Era format when page loads
+        // But only store it in a hidden field for document generation, not display in UI
         document.addEventListener('DOMContentLoaded', function () {
             const currentDate = new Date();
             const thaiDate = convertToThaiDate(currentDate);
-            document.getElementById('current_date').value = thaiDate;
-
-            // Display current date in the form (optional)
-            const dateInfoDiv = document.createElement('div');
-            dateInfoDiv.className = 'date-info';
-            dateInfoDiv.innerHTML = `<span>วันที่ปัจจุบัน: ${thaiDate}</span>`;
-
-            // Insert after the title section
-            const titleSection = document.querySelector('.title-section');
-            titleSection.parentNode.insertBefore(dateInfoDiv, titleSection.nextSibling);
+            
+            // Create hidden input for current date if it doesn't exist
+            let currentDateInput = document.getElementById('current_date');
+            if (!currentDateInput) {
+                currentDateInput = document.createElement('input');
+                currentDateInput.type = 'hidden';
+                currentDateInput.id = 'current_date';
+                currentDateInput.name = 'current_date';
+                document.getElementById('procurementForm').appendChild(currentDateInput);
+            }
+            
+            // Set the value of the hidden input field for use in document generation
+            currentDateInput.value = thaiDate;
+            
+            // Note: Date display in UI has been removed as per requirements
+            // The date will only be used for document generation
         });
 
         // Improved form validation for task 3.2

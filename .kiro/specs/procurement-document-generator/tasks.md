@@ -15,12 +15,21 @@
   - Set up the requirements.txt file with necessary dependencies
   - _Requirements: All_
 
-- [ ] 2. Implement core utilities for Thai language support
-  - [ ] 2.1 Create Thai Baht text conversion utility
+- [x] 2. Implement core utilities for Thai language support
+
+
+  - [x] 2.1 Create Thai Baht text conversion utility
+
+
     - Implement function to convert numbers to Thai text representation
     - Add unit tests for the conversion function
+
+
+
     - _Requirements: 2.5_
   
+
+
   - [ ] 2.2 Create Buddhist Era date conversion utility
     - Implement function to convert Gregorian dates to Buddhist Era
     - Add unit tests for the date conversion function
