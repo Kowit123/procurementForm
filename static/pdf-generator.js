@@ -55,11 +55,11 @@ function generatePDF() {
     // Load jsPDF library dynamically if not already loaded
     if (typeof jsPDF === 'undefined') {
         const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        script.src = 'static/jspdf.min.js';
         script.onload = function () {
             // Load additional font for Thai language support
             const fontScript = document.createElement('script');
-            fontScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/polyfills.umd.js';
+            fontScript.src = 'static/element-of-pdf/polyfills.umd.js';
             fontScript.onload = function () {
                 createPDF();
             };

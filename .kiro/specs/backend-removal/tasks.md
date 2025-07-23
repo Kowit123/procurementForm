@@ -9,15 +9,6 @@
   - _Requirements: 3.4, 2.2_
 
 - [x] 2. Implement Thai date conversion functionality in JavaScript
-
-
-
-
-
-
-
-
-
   - Move Buddhist Era date conversion from Python utils to JavaScript
   - Enhance existing convertToThaiDate() function with full Thai utilities
   - Add number-to-Thai-text conversion function for PDF generation
@@ -31,7 +22,8 @@
   - Update any server-dependent PDF generation code
   - _Requirements: 2.1, 2.2_
 
-- [ ] 4. Update asset references in JavaScript files
+- [x] 4. Update asset references in JavaScript files
+
   - Check static/supply-list.js for any server dependencies
   - Update static/pdf-generator.js if needed for static operation
   - Ensure all JavaScript modules load correctly with relative paths
