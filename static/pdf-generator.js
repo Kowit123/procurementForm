@@ -127,35 +127,6 @@ function createPDF() {
     //body
     //I will separate them line by line. Each line will be stored in a separate script.
     first_line(doc, pageWidth);
-    // // first_line();
-    //         //first line
-    //         const text1 = "ด้วยข้าพเจ้า";
-    //         const text2 = `${document.getElementById("responsible_person").value}`;
-    //         const text3 = "จะดำเนินการขอให้จัดหาและขออนุมัติจัดซื้อ/ขอจ้าง/การเช่า";
-        
-    //         // วัดความกว้าง
-    //         const text1Width = doc.getTextWidth(text1);
-    //         const text2Width = doc.getTextWidth(text2);
-    //         const text3Width = doc.getTextWidth(text3);
-        
-    //         // Block 1: fix ที่ x = 3.5
-    //         const x1 = 3.5;
-    //         const x1End = x1 + text1Width;
-        
-    //         // Block 3: align right ที่ x = pageWidth - 2
-    //         const x3 = pageWidth - 2;
-    //         const x3Start = x3 - text3Width;
-        
-    //         // คำนวณ center ระหว่าง block 1 และ block 3
-    //         const centerX = (x1End + x3Start) / 2;
-        
-    //         // Block 2: ให้อยู่กลางระหว่าง 1 กับ 3
-    //         const x2 = centerX - (text2Width / 2);
-        
-    //         doc.text(text1, x1, 6.4);                             // Block 1 (ซ้าย)
-    //         doc.text(text2, x2, 6.4);                              // Block 2 (กลาง)
-    //         doc.text(text3, x3, 6.4, { align: 'right' });
-
 
 
 
