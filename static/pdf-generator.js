@@ -17,6 +17,7 @@ function initPdfGenerator() {
             // Validate form before generating PDF
             if (validateForm()) {
                 generatePDF();
+                console.log(ThaiDate(new Date()));
             }
         });
     }
@@ -88,7 +89,7 @@ function createPDF() {
     // set img
     const img = document.getElementById("img");
       
-    // สร้าง canvas เพื่อแปลงภาพเป็น base64
+    // setup img create canvas for ocnvert img to base64
     const canvas = document.createElement("canvas");
     canvas.width = img.width;
     canvas.height = img.height;
@@ -99,7 +100,7 @@ function createPDF() {
     //get page width
     const pageWidth = doc.internal.pageSize.getWidth();
     // Add content to the PDF
-    //header
+
     doc.addImage(imgData, 'jpg', 2, 1, 1, 1.1); // (imageData, type, x, y, width, height)
     doc.setFont("THSarabunNew", "normal");
     doc.setFontSize(12);
@@ -107,6 +108,58 @@ function createPDF() {
     doc.setFont("THSarabunNew", "bold");
     doc.setFontSize(16);
     doc.text('บันทึกข้อความ', pageWidth/2, 2, { align: 'center' });
+
+    //header
+    doc.setFontSize(14); 
+    doc.text(`ส่วนราชการ`, 2, 2.6);
+    doc.text(`ที่`, 2, 3.2);
+    doc.text(`วันที่`, 10.5, 3.2);
+    doc.text(`เรื่อง`, 2, 3.8);
+    doc.text(`เรียน`, 2, 5.4);
+    doc.setFont("THSarabunNew", "normal");
+    doc.text(`งานพัสดุ คณะวิศวกรรมศาสตร์  มหาวิทยาลัยมหาสารคาม เบอร์โทรภายใน 3014 `, 3.75, 2.6);
+    doc.text(`อว 0605.14(1.1)/ `, 2.25, 3.2);
+    doc.text(`${ThaiDate(new Date())}`, 11.25, 3.2);
+    doc.text(`ขอให้จัดหาพัสดุและขออนุมัติจัดซื้อจัดจ้าง พร้อมเสนอรายชื่อเพื่อแต่งตั้งผู้รับผิดชอบหรือคณะกรรมการกำหนดรายละเอียด`, 2.75, 3.8);
+    doc.text(`คุณลักษณะเฉพาะและขอบเขตของงานพัสดุ และเสนอรายชื่อผู้ตรวจรับพัสดุหรือคณะกรรมการตรวจรับพัสดุ โดยวิธีเฉพาะเจาะจง`, 2.75, 4.4);
+    doc.text(`คณบดีคณะวิศวกรรมศาสตร์  `, 2.8, 5.4);
+    
+    //body
+    //I will separate them line by line. Each line will be stored in a separate script.
+    first_line(doc, pageWidth);
+    // // first_line();
+    //         //first line
+    //         const text1 = "ด้วยข้าพเจ้า";
+    //         const text2 = `${document.getElementById("responsible_person").value}`;
+    //         const text3 = "จะดำเนินการขอให้จัดหาและขออนุมัติจัดซื้อ/ขอจ้าง/การเช่า";
+        
+    //         // วัดความกว้าง
+    //         const text1Width = doc.getTextWidth(text1);
+    //         const text2Width = doc.getTextWidth(text2);
+    //         const text3Width = doc.getTextWidth(text3);
+        
+    //         // Block 1: fix ที่ x = 3.5
+    //         const x1 = 3.5;
+    //         const x1End = x1 + text1Width;
+        
+    //         // Block 3: align right ที่ x = pageWidth - 2
+    //         const x3 = pageWidth - 2;
+    //         const x3Start = x3 - text3Width;
+        
+    //         // คำนวณ center ระหว่าง block 1 และ block 3
+    //         const centerX = (x1End + x3Start) / 2;
+        
+    //         // Block 2: ให้อยู่กลางระหว่าง 1 กับ 3
+    //         const x2 = centerX - (text2Width / 2);
+        
+    //         doc.text(text1, x1, 6.4);                             // Block 1 (ซ้าย)
+    //         doc.text(text2, x2, 6.4);                              // Block 2 (กลาง)
+    //         doc.text(text3, x3, 6.4, { align: 'right' });
+
+
+
+
+
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");

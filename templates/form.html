@@ -31,8 +31,7 @@
                 <div class="form-section section-box">
                     <h3>ข้อมูลผู้ขอให้จัดหา</h3>
                     <div class="responsible-person">
-                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span
-                                class="required">*</span></label>
+                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span class="required">*</span></label>
                         <input type="text" id="responsible_person" name="responsible_person" required>
                         <label for="responsible_committee_member1">กรรมการ (ถ้ามี)</label>
                         <input type="text" id="responsible_committee_member1" name="responsible_committee_member1">
@@ -239,9 +238,11 @@
                 alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วนก่อนดูตัวอย่าง');
                 return;
             }
-
         });
+
     </script>
+    <script
+        src="{{ url_for('serve_utils_file', filename='date-convert.js') if url_for is defined else '../utils/date-convert.js' }}"></script>
     <script
         src="{{ url_for('static', filename='supply-list.js') if url_for is defined else '../static/supply-list.js' }}"></script>
     <script
@@ -252,6 +253,8 @@
         src="{{ url_for('static', filename='pdf-generator.js') if url_for is defined else '../static/pdf-generator.js' }}"></script>
         <script
         src="{{ url_for('static', filename='font/THSarabunNew-bold.js') if url_for is defined else '../static/font/THSarabunNew-bold.js' }}"></script>
+        <script
+        src="{{ url_for('static', filename='element-of-pdf/first-line.js') if url_for is defined else '../static/element-of-pdf/first-line.js' }}"></script>
         <script
         src="{{ url_for('static', filename='font/THSarabunNew-normal.js') if url_for is defined else '../static/font/THSarabunNew-normal.js' }}"></script>
         <img style="display: none;" id="img" src="{{ url_for('static', filename='img/krut.jpg') if url_for is defined else '../static/img/krut.jpg' }}" alt="Krut">    

@@ -26,6 +26,11 @@ def download_document(format):
     # This will be implemented in task 5.4
     return jsonify({"status": "Not implemented yet"})
 
+@app.route('/utils/<filename>')
+def serve_utils_file(filename):
+    """Serve files from the utils directory."""
+    return send_from_directory('utils', filename)
+
 @app.route('/public/<filename>')
 def serve_public_file(filename):
     """Serve files from the public directory."""
@@ -40,6 +45,11 @@ def load_font(filename):
 def load_img(filename):
     """Serve img files from the static/img directory."""
     return send_from_directory('static/img', filename)
+
+@app.route('/static/element-of-pdf/<filename>')
+def load_element_of_pdf(filename):
+    """Serve element-of-pdf files from the static/element-of-pdf directory."""
+    return send_from_directory('static/element-of-pdf', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
