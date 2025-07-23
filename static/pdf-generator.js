@@ -17,7 +17,7 @@ function initPdfGenerator() {
             // Validate form before generating PDF
             if (validateForm()) {
                 generatePDF();
-                console.log(ThaiDate(new Date()));
+                console.log(convertToThaiDate(new Date()));
             }
         });
     }
@@ -58,13 +58,7 @@ function generatePDF() {
         const script = document.createElement('script');
         script.src = 'static/jspdf.min.js';
         script.onload = function () {
-            // Load additional font for Thai language support
-            const fontScript = document.createElement('script');
-            fontScript.src = 'static/element-of-pdf/polyfills.umd.js';
-            fontScript.onload = function () {
-                createPDF();
-            };
-            document.head.appendChild(fontScript);
+            createPDF();
         };
         document.head.appendChild(script);
     } else {
@@ -74,6 +68,8 @@ function generatePDF() {
 
 // Function to create the actual PDF
 function createPDF() {
+    // Get the form data
+    const formData = getFormData();
     // Create new jsPDF instance
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({
@@ -86,31 +82,53 @@ function createPDF() {
     doc.addFont('THSarabunNew-normal.ttf', 'THSarabunNew', 'normal');
     doc.addFileToVFS('THSarabunNew-bold.ttf', THSarabunNew_bold);
     doc.addFont('THSarabunNew-bold.ttf', 'THSarabunNew', 'bold');
-    // set img
-    const img = document.getElementById("img");
-      
-    // setup img create canvas for ocnvert img to base64
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-    const imgData = canvas.toDataURL("{{ url_for('static', filename='img/krut.jpg') if url_for is defined else '../static/img/krut.jpg' }}");
-
     //get page width
     const pageWidth = doc.internal.pageSize.getWidth();
     // Add content to the PDF
 
-    doc.addImage(imgData, 'jpg', 2, 1, 1, 1.1); // (imageData, type, x, y, width, height)
+    // Add logo image if it exists
+    try {
+        const img = document.getElementById("img");
+        if (img) {
+            // Make sure the image is loaded
+            if (img.complete) {
+                // setup img create canvas for convert img to base64
+                const canvas = document.createElement("canvas");
+                canvas.width = img.naturalWidth || img.width;
+                canvas.height = img.naturalHeight || img.height;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0);
+                const imgData = canvas.toDataURL("image/jpeg");
+                doc.addImage(imgData, 'JPEG', 2, 1, 1, 1.1); // (imageData, type, x, y, width, height)
+            } else {
+                // If image is not loaded yet, wait for it
+                img.onload = function () {
+                    const canvas = document.createElement("canvas");
+                    canvas.width = img.naturalWidth || img.width;
+                    canvas.height = img.naturalHeight || img.height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0);
+                    const imgData = canvas.toDataURL("image/jpeg");
+                    doc.addImage(imgData, 'JPEG', 2, 1, 1, 1.1);
+
+                    // Continue with the rest of the PDF generation
+                    continueWithPdfGeneration();
+                };
+                return; // Exit function to wait for image load
+            }
+        }
+    } catch (error) {
+        console.log('Logo image not found, continuing without image:', error);
+    }
     doc.setFont("THSarabunNew", "normal");
     doc.setFontSize(12);
-    doc.text('EN-PS-01', pageWidth-2, 0.5, { align: 'center' });
+    doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'center' });
     doc.setFont("THSarabunNew", "bold");
     doc.setFontSize(16);
-    doc.text('บันทึกข้อความ', pageWidth/2, 2, { align: 'center' });
+    doc.text('บันทึกข้อความ', pageWidth / 2, 2, { align: 'center' });
 
     //header
-    doc.setFontSize(14); 
+    doc.setFontSize(14);
     doc.text(`ส่วนราชการ`, 2, 2.6);
     doc.text(`ที่`, 2, 3.2);
     doc.text(`วันที่`, 10.5, 3.2);
@@ -119,17 +137,20 @@ function createPDF() {
     doc.setFont("THSarabunNew", "normal");
     doc.text(`งานพัสดุ คณะวิศวกรรมศาสตร์  มหาวิทยาลัยมหาสารคาม เบอร์โทรภายใน 3014 `, 3.75, 2.6);
     doc.text(`อว 0605.14(1.1)/ `, 2.25, 3.2);
-    doc.text(`${ThaiDate(new Date())}`, 11.25, 3.2);
+    // Use the Thai date conversion function
+    try {
+        doc.text(`${convertToThaiDate(new Date())}`, 11.25, 3.2);
+    } catch (error) {
+        console.log('Error with Thai date conversion:', error);
+        doc.text(`${new Date().toLocaleDateString('th-TH')}`, 11.25, 3.2);
+    }
     doc.text(`ขอให้จัดหาพัสดุและขออนุมัติจัดซื้อจัดจ้าง พร้อมเสนอรายชื่อเพื่อแต่งตั้งผู้รับผิดชอบหรือคณะกรรมการกำหนดรายละเอียด`, 2.75, 3.8);
     doc.text(`คุณลักษณะเฉพาะและขอบเขตของงานพัสดุ และเสนอรายชื่อผู้ตรวจรับพัสดุหรือคณะกรรมการตรวจรับพัสดุ โดยวิธีเฉพาะเจาะจง`, 2.75, 4.4);
     doc.text(`คณบดีคณะวิศวกรรมศาสตร์  `, 2.8, 5.4);
-    
+
     //body
     //I will separate them line by line. Each line will be stored in a separate script.
     first_line(doc, pageWidth);
-
-
-
 
 
     // use blob to preview pdf before download
@@ -138,7 +159,7 @@ function createPDF() {
     window.open(blobUrl, "_blank");
 }
 
-// Helper function to get form data
+// function to get form data
 function getFormData() {
     const formData = {};
 

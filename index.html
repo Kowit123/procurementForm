@@ -11,6 +11,9 @@
 
 <body>
     <div class="container">
+        <!-- Hidden image for PDF generation -->
+        <img id="img" src="static/img/krut.jpg" style="display: none;" alt="Logo" />
+        
         <div class="header-section">
             <div class="example-document-section">
                 <button type="button" id="exampleDocBtn" class="example-doc-button">📄 ตัวอย่างเอกสาร</button>
@@ -228,7 +231,8 @@
     <script src="static/supply-list.js"></script>
     <script src="static/jspdf.min.js"></script>
     <script src="static/jspdf.plugin.autotable.min.js"></script>
-    <script src="static/pdf-generator.js"></script>
+    <script src="static/element-of-pdf/first-line.js"></script>  
+    <script src="static/pdf-generator.js"></script>  
     <script src="static/font/THSarabunNew-bold.js"></script>
     <script src="static/font/THSarabunNew-normal.js"></script>
 </body>
