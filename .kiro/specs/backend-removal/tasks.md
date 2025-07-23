@@ -36,7 +36,7 @@
   - Remove setup.bat Python environment setup script
   - _Requirements: 1.1, 1.2, 3.1_
 
-- [ ] 6. Remove Python utility files and tests
+- [x] 6. Remove Python utility files and tests
   - Delete utils/ directory containing Python utilities
   - Remove tests/ directory with Python test files
   - Clean up any remaining Python-specific files

@@ -1,35 +1,6 @@
-# Virtual Environment
-venv/
-env/
-ENV/
+# Removed Python-specific entries as part of backend removal
 
-# Python cache files
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-
-# Removed Flask stuff
-
-# Jupyter Notebook
-.ipynb_checkpoints
+# VS Code
 
 # VS Code
 .vscode/*
