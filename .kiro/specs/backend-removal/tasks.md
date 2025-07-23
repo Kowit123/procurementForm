@@ -29,7 +29,7 @@
   - Ensure all JavaScript modules load correctly with relative paths
   - _Requirements: 3.4, 2.2_
 
-- [ ] 5. Remove Flask backend files and dependencies
+- [x] 5. Remove Flask backend files and dependencies
   - Delete app.py Flask application file
   - Remove templates/form.html (replaced by updated index.html)
   - Delete requirements.txt and Pipfile Python dependency files

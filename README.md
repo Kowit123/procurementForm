@@ -1,12 +1,11 @@
 # Procurement Document Generator
 
-A web-based system that allows users to input procurement data through a form interface and automatically generates standardized government procurement documents in .docx or .pdf format.
+A static web application that allows users to input procurement data through a form interface and automatically generates standardized government procurement documents in PDF format directly in the browser.
 
 ## Project Setup
 
 ### Prerequisites
-- Python 3.8 or higher
-- pip (Python package installer)
+- A modern web browser (Chrome, Firefox, Edge, or Safari)
 
 ### Installation
 
@@ -16,62 +15,45 @@ git clone <repository-url>
 cd procurement-document-generator
 ```
 
-2. Create a virtual environment:
-```
-python -m venv venv
-```
-
-3. Activate the virtual environment:
-
-On Windows:
-```
-venv\Scripts\activate
-```
-
-On macOS/Linux:
-```
-source venv/bin/activate
-```
-
-4. Install dependencies:
-```
-pip install -r requirements.txt
-```
-
-5. Create a .env file from the example:
-```
-cp .env.example .env
-```
-Then edit the .env file to set your environment variables.
-
 ### Running the Application
 
-1. Activate the virtual environment (if not already activated)
-2. Run the Flask application:
+There are several ways to use this application:
+
+1. Open the index.html file directly in your browser:
 ```
-python app.py
+# Simply double-click on index.html in your file explorer
 ```
-3. Open a web browser and navigate to `http://127.0.0.1:5000/`
+
+2. Use a simple HTTP server (optional, for development):
+```
+# Using Python's built-in server
+python -m http.server
+
+# Or using Node.js
+npx serve
+```
+
+3. Deploy to any static web hosting service (GitHub Pages, Netlify, etc.)
 
 ## Project Structure
 
-- `app.py`: Main Flask application
-- `requirements.txt`: Python dependencies
-- `templates/`: HTML templates
-  - `form.html`: Main form for data input
+- `index.html`: Main application entry point
 - `static/`: Static files (CSS, JavaScript)
   - `style.css`: Main stylesheet
-- `utils/`: Utility functions
-  - `thai_utils.py`: Thai language utilities (date conversion, number to text)
-  - `doc_generator.py`: Document generation utilities
+  - `pdf-generator.js`: PDF generation functionality
+  - `supply-list.js`: Supply list management
+  - `thai-utils.js`: Thai language utilities (date conversion, number to text)
+  - `jspdf.min.js`: PDF generation library
+  - `jspdf.plugin.autotable.min.js`: Table plugin for jsPDF
 - `doc_templates/`: Document templates
   - `purchase_template.docx`: Template for purchase documents
-- `tests/`: Test files
-  - `test_thai_utils.py`: Tests for Thai language utilities
+- `public/`: Public assets
+  - `example-document.pdf`: Example document
 
 ## Features
 
 - Web form for procurement data input
 - Thai language support (Buddhist Era dates, Thai Baht text)
-- Document generation in .docx and .pdf formats
-- Stateless operation (no database required)
+- Client-side PDF document generation
+- Completely static operation (no server required)
+- Works offline after initial load
