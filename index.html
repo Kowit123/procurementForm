@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procurement Document Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') if url_for is defined else '../static/style.css' }}">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
@@ -22,7 +21,7 @@
             </div>
         </div>
 
-        <form id="procurementForm" action="/generate" method="post">
+        <form id="procurementForm">
             <!-- Hidden input for current date in Thai Buddhist Era format -->
             <!-- <input type="hidden" id="current_date" name="current_date"> -->
 
@@ -31,7 +30,8 @@
                 <div class="form-section section-box">
                     <h3>ข้อมูลผู้ขอให้จัดหา</h3>
                     <div class="responsible-person">
-                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span class="required">*</span></label>
+                        <label for="responsible_person">ผู้ขอให้จัดหา/ประธานกรรมการ <span
+                                class="required">*</span></label>
                         <input type="text" id="responsible_person" name="responsible_person" required>
                         <label for="responsible_committee_member1">กรรมการ (ถ้ามี)</label>
                         <input type="text" id="responsible_committee_member1" name="responsible_committee_member1">
@@ -127,24 +127,8 @@
         </form>
     </div>
 
+    <script src="static/thai-utils.js"></script>
     <script>
-        // Function to convert Gregorian date to Thai Buddhist Era format for display only
-        // The server-side implementation in utils/thai_utils.py will be used for actual document generation
-        function convertToThaiDate(date) {
-            // Thai month names
-            const thaiMonths = [
-                'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-                'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-            ];
-
-            // Convert to Buddhist Era (BE = CE + 543)
-            const day = date.getDate();
-            const month = thaiMonths[date.getMonth()];
-            const year = date.getFullYear() + 543; // Convert to Buddhist Era
-
-            // Format: วันที่ DD เดือน MMMM พ.ศ. YYYY
-            return `${day} ${month} พ.ศ. ${year}`;
-        }
 
         // Set current date in Thai Buddhist Era format when page loads
         // But only store it in a hidden field for document generation, not display in UI
@@ -216,7 +200,7 @@
         // Example document button functionality
         document.getElementById('exampleDocBtn').addEventListener('click', function () {
             // Open example document PDF in new tab
-            window.open('/public/example-document.pdf', '_blank');
+            window.open('public/example-document.pdf', '_blank');
         });
 
         // Preview button functionality
@@ -238,26 +222,15 @@
                 alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วนก่อนดูตัวอย่าง');
                 return;
             }
-        });
 
+        });
     </script>
-    <script
-        src="{{ url_for('serve_utils_file', filename='date-convert.js') if url_for is defined else '../utils/date-convert.js' }}"></script>
-    <script
-        src="{{ url_for('static', filename='supply-list.js') if url_for is defined else '../static/supply-list.js' }}"></script>
-    <script
-        src="{{ url_for('static', filename='jspdf.min.js') if url_for is defined else '../static/jspdf.min.js' }}"></script>
-    <script
-        src="{{ url_for('static', filename='jspdf.plugin.autotable.min.js') if url_for is defined else '../static/jspdf.plugin.autotable.min.js' }}"></script>
-    <script
-        src="{{ url_for('static', filename='pdf-generator.js') if url_for is defined else '../static/pdf-generator.js' }}"></script>
-        <script
-        src="{{ url_for('static', filename='font/THSarabunNew-bold.js') if url_for is defined else '../static/font/THSarabunNew-bold.js' }}"></script>
-        <script
-        src="{{ url_for('static', filename='element-of-pdf/first-line.js') if url_for is defined else '../static/element-of-pdf/first-line.js' }}"></script>
-        <script
-        src="{{ url_for('static', filename='font/THSarabunNew-normal.js') if url_for is defined else '../static/font/THSarabunNew-normal.js' }}"></script>
-        <img style="display: none;" id="img" src="{{ url_for('static', filename='img/krut.jpg') if url_for is defined else '../static/img/krut.jpg' }}" alt="Krut">    
-    </body>
+    <script src="static/supply-list.js"></script>
+    <script src="static/jspdf.min.js"></script>
+    <script src="static/jspdf.plugin.autotable.min.js"></script>
+    <script src="static/pdf-generator.js"></script>
+    <script src="static/font/THSarabunNew-bold.js"></script>
+    <script src="static/font/THSarabunNew-normal.js"></script>
+</body>
 
 </html>

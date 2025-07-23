@@ -1,5 +1,5 @@
 // PDF Generator for Procurement Document
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize PDF generation functionality when the page loads
     initPdfGenerator();
 });
@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function initPdfGenerator() {
     // Get the preview button
     const previewBtn = document.getElementById('previewBtn');
-    
+
     // Add event listener to the preview button
     if (previewBtn) {
-        previewBtn.addEventListener('click', function(event) {
+        previewBtn.addEventListener('click', function (event) {
             // Prevent default form submission
             event.preventDefault();
-            
+
             // Validate form before generating PDF
             if (validateForm()) {
                 generatePDF();
@@ -30,12 +30,12 @@ function validateForm() {
     let errorMessage = '';
 
     // Check each required field
-    requiredInputs.forEach(function(input) {
+    requiredInputs.forEach(function (input) {
         if (!input.value.trim()) {
             isValid = false;
-            const label = input.previousElementSibling?.textContent || 
-                         input.closest('td')?.previousElementSibling?.textContent || 
-                         'required field';
+            const label = input.previousElementSibling?.textContent ||
+                input.closest('td')?.previousElementSibling?.textContent ||
+                'required field';
             errorMessage += `กรุณากรอก ${label.replace('*', '').trim()}\n`;
             input.classList.add('error');
         } else {
@@ -47,7 +47,7 @@ function validateForm() {
     if (!isValid) {
         alert(errorMessage);
     }
-    
+
     return isValid;
 }
 
@@ -56,12 +56,12 @@ function generatePDF() {
     // Load jsPDF library dynamically if not already loaded
     if (typeof jsPDF === 'undefined') {
         const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-        script.onload = function() {
+        script.src = 'static/jspdf.min.js';
+        script.onload = function () {
             // Load additional font for Thai language support
             const fontScript = document.createElement('script');
-            fontScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/polyfills.umd.js';
-            fontScript.onload = function() {
+            fontScript.src = 'static/element-of-pdf/polyfills.umd.js';
+            fontScript.onload = function () {
                 createPDF();
             };
             document.head.appendChild(fontScript);
@@ -136,4 +136,48 @@ function createPDF() {
     const pdfBlob = doc.output("blob");
     const blobUrl = URL.createObjectURL(pdfBlob);
     window.open(blobUrl, "_blank");
+}
+
+// Helper function to get form data
+function getFormData() {
+    const formData = {};
+
+    // Get responsible person information
+    formData.responsiblePerson = document.getElementById('responsible_person').value;
+    formData.responsibleCommitteeMember1 = document.getElementById('responsible_committee_member1').value;
+    formData.responsibleCommitteeMember2 = document.getElementById('responsible_committee_member2').value;
+    formData.requestingFor = document.getElementById('requesting_for').value;
+
+    // Get inspector information
+    formData.inspector = document.getElementById('inspector').value;
+    formData.inspectorCommitteeMember1 = document.getElementById('inspector_committee_member1').value;
+    formData.inspectorCommitteeMember2 = document.getElementById('inspector_committee_member2').value;
+
+    // Get supply list
+    formData.supplies = [];
+    const supplyRows = document.querySelectorAll('.supply-item');
+    supplyRows.forEach(function (row, index) {
+        const nameInput = row.querySelector('input[name="supply_name[]"]');
+        const amountInput = row.querySelector('input[name="supply_amount[]"]');
+        const priceInput = row.querySelector('input[name="supply_price_unit[]"]');
+        const sumInput = row.querySelector('input[name="sum_supply_price[]"]');
+        const isDomestic = row.querySelector(`input[name="product_origin_${index + 1}"][value="domestic"]`).checked;
+
+        if (nameInput && nameInput.value) {
+            formData.supplies.push({
+                name: nameInput.value,
+                amount: amountInput ? parseFloat(amountInput.value) || 0 : 0,
+                price: priceInput ? parseFloat(priceInput.value) || 0 : 0,
+                sum: sumInput ? parseFloat(sumInput.value) || 0 : 0,
+                isDomestic: isDomestic
+            });
+        }
+    });
+
+    // Get totals
+    formData.totalItems = document.getElementById('totalItems').textContent;
+    formData.grandTotal = document.getElementById('grandTotal').textContent;
+    formData.grandTotalText = numToThaiText(parseFloat(formData.grandTotal.replace(/,/g, '')));
+
+    return formData;
 }
