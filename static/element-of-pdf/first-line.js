@@ -1,23 +1,21 @@
 function first_line(doc, pageWidth) {
-    // ข้อความแต่ละ block
+    // tetx 
     const text1 = "ด้วยข้าพเจ้า";
     const text2 = `${document.getElementById("responsible_person").value}`
     const text3 = "จะดำเนินการขอให้จัดหาและขออนุมัติจัดซื้อ/ขอจ้าง/การเช่า";
-
-    // ข้อความจุดไข่ปลา
     const dots = "...............................................................................";
 
-    // วัดความกว้างของข้อความ
+    // get text width
     const text1Width = doc.getTextWidth(text1);
     const text2Width = doc.getTextWidth(text2);
     const text3Width = doc.getTextWidth(text3);
     const dotsWidth = doc.getTextWidth(dots);
 
-    // Block 1: fix ที่ x = 3.5
+    // Block 1: x = 3.5
     const x1 = 3.5;
-    const x1End = x1 + text1Width;
+    const x1End = x1 + text1Width; // end of text1
 
-    // Block 3: align right ที่ x = pageWidth - 2
+    // Block 3: align right at x = pageWidth - 2
     const x3 = pageWidth - 2;
     const x3Start = x3 - text3Width;
 
