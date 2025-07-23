@@ -2,12 +2,22 @@
 
 - [x] 1. Update index.html to remove Flask templating and fix asset paths
 
+
   - Remove all Jinja2 templating syntax ({{ url_for() }} statements)
   - Update CSS and JavaScript src/href attributes to use relative paths
   - Ensure all asset references work for static file access
   - _Requirements: 3.4, 2.2_
 
-- [ ] 2. Implement Thai date conversion functionality in JavaScript
+- [x] 2. Implement Thai date conversion functionality in JavaScript
+
+
+
+
+
+
+
+
+
   - Move Buddhist Era date conversion from Python utils to JavaScript
   - Enhance existing convertToThaiDate() function with full Thai utilities
   - Add number-to-Thai-text conversion function for PDF generation
