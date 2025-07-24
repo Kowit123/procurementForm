@@ -157,6 +157,7 @@ function createPDF() {
     seventhTonineth_line(doc, pageWidth, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2);
     tenthTofourteenth_line(doc)
     fiveteenthTonineteenth_line(doc, pageWidth, formData.inspector, formData.inspectorCommitteeMember1, formData.inspectorCommitteeMember2);
+    signature_box1(doc, pageWidth, 'ผู้ขอให้จัดหาหรือผู้รับผิดชอบ', formData.responsiblePerson);
 
 
     // use blob to preview pdf before download
