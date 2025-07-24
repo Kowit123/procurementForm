@@ -5,8 +5,8 @@ function second_line(doc, pageWidth, Const1, Const2) {
     const text3 = " รายการ เป็นจำนวนเงิน";
     const text4 = `${Const2}`;
     const text5 = "บาท";
-    const dot1 = ".......................";
-    const dot2 = ".............................................";
+    const dot1 = "......................";
+    const dot2 = "............................................";
 
     // get text width
     const text1Width = doc.getTextWidth(text1);

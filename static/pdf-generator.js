@@ -152,6 +152,7 @@ function createPDF() {
     //I will separate them line by line. Each line will be stored in a separate script.
     first_line(doc, pageWidth);
     second_line(doc, pageWidth, formData.totalItems, formData.grandTotal);
+    third_line(doc, pageWidth, formData.grandTotalText, formData.requestingFor);
 
 
     // use blob to preview pdf before download
