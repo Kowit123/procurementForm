@@ -154,6 +154,9 @@ function createPDF() {
     second_line(doc, pageWidth, formData.totalItems, formData.grandTotal);
     third_line(doc, pageWidth, formData.grandTotalText, formData.requestingFor);
     forthTosixth_line(doc);
+    seventhTonineth_line(doc, pageWidth, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2);
+    tenthTofourteenth_line(doc)
+    fiveteenthTonineteenth_line(doc, pageWidth, formData.inspector, formData.inspectorCommitteeMember1, formData.inspectorCommitteeMember2);
 
 
     // use blob to preview pdf before download
