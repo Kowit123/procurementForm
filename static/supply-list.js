@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <td><input type="text" name="supply_name[]" required></td>
             <td><input type="text" name="supply_amount[]" min="1" required></td>
             <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" required></td>
+            <td><input type="text" name="supply_unit[]" required></td>
             <td><input type="text" name="sum_supply_price[]" readonly></td>
             <td class="radio-cell"><input type="radio" name="product_origin_${rowCounter}" value="domestic" checked></td>
             <td class="radio-cell"><input type="radio" name="product_origin_${rowCounter}" value="foreign"></td>
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             input.value = formatNumberWithCommas(value);
         }
     }
-    
+
     // Custom validation for number inputs
     function validateNumberInput(input) {
         const rawValue = input.value.replace(/,/g, '').trim();
@@ -59,20 +60,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const min = parseFloat(input.getAttribute('min'));
         const max = parseFloat(input.getAttribute('max'));
         const step = parseFloat(input.getAttribute('step'));
-        
+
         let isValid = true;
         let errorMessage = '';
-        
+
         // Always reset styling first
         input.classList.remove('error');
         input.title = '';
         input.style.border = '';
-        
+
         // Skip validation if field is empty (let required validation handle it)
         if (rawValue === '') {
             return true;
         }
-        
+
         // Check if it's a valid number
         if (isNaN(value)) {
             isValid = false;
@@ -98,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 errorMessage = `ทศนิยมได้สูงสุด ${decimalPlaces} ตำแหน่ง`;
             }
         }
-        
+
         // Apply validation styling only if invalid
         if (!isValid) {
             input.classList.add('error');
@@ -106,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
             input.style.border = '2px solid red';
             alert('Validation failed: ' + errorMessage);
         }
-        
+
         return isValid;
     }
 
