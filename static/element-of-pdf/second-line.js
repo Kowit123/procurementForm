@@ -48,5 +48,6 @@ function second_line(doc, pageWidth, Const1, Const2, y = 7) {
     doc.text(dot2, xDot2, y + 0.05);
     doc.text(text5, pageWidth - 2, y, {align:'right'});
     
-    return y + 0.6;  // Return updated y position
+    y += 0.6;  // Use y += instead of return y + 0.6
+    return y;
 }

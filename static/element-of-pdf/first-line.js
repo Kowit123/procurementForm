@@ -32,5 +32,6 @@ function first_line(doc, pageWidth, y = 6.4) {
     doc.text(text2, x2, y);                              // Block 2 (ตรงกลางจุดไข่ปลา)
     doc.text(text3, x3, y, { align: 'right' });          // Block 3 (ขวา)
     
-    return y + 0.6;  // Return updated y position
+    y += 0.6;  // Use y += instead of return y + 0.6
+    return y;
 }
