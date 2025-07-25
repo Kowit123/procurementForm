@@ -150,15 +150,17 @@ function createPDF() {
 
     //body
     //I will separate them line by line. Each line will be stored in a separate script.
-    first_line(doc, pageWidth);
-    second_line(doc, pageWidth, formData.totalItems, formData.grandTotal);
-    third_line(doc, pageWidth, formData.grandTotalText, formData.requestingFor);
-    forthTosixth_line(doc);
-    seventhTonineth_line(doc, pageWidth, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2);
-    tenthTofourteenth_line(doc)
-    fiveteenthTonineteenth_line(doc, pageWidth, formData.inspector, formData.inspectorCommitteeMember1, formData.inspectorCommitteeMember2);
-    signature_box1(doc, pageWidth, 'ผู้ขอให้จัดหาหรือผู้รับผิดชอบ', formData.responsiblePerson);
-    rest_of_first_page (doc, pageWidth, formData.responsiblePerson);
+    let currentY = 6.0; // Starting y position after header
+
+    currentY = first_line(doc, pageWidth, currentY);
+    currentY = second_line(doc, pageWidth, formData.totalItems, formData.grandTotal, currentY);
+    currentY = third_line(doc, pageWidth, formData.grandTotalText, formData.requestingFor, currentY);
+    currentY = forthTosixth_line(doc, currentY);
+    currentY = seventhTonineth_line(doc, pageWidth, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2, currentY);
+    currentY = tenthTofourteenth_line(doc, currentY);
+    currentY = fiveteenthTonineteenth_line(doc, pageWidth, formData.inspector, formData.inspectorCommitteeMember1, formData.inspectorCommitteeMember2, currentY);
+    currentY = signature_box1(doc, pageWidth, 'ผู้ขอให้จัดหาหรือผู้รับผิดชอบ', formData.responsiblePerson, currentY);
+    rest_of_first_page(doc, pageWidth, formData.responsiblePerson, currentY);
 
 
     // use blob to preview pdf before download
