@@ -145,7 +145,7 @@ function createPDF() {
         doc.text(`${new Date().toLocaleDateString('th-TH')}`, 11.25, 3.2);
     }
     doc.text(`ขอให้จัดหาพัสดุและขออนุมัติจัดซื้อจัดจ้าง พร้อมเสนอรายชื่อเพื่อแต่งตั้งผู้รับผิดชอบหรือคณะกรรมการกำหนดรายละเอียด`, 2.75, 3.8);
-    doc.text(`คุณลักษณะเฉพาะและขอบเขตของงานพัสดุ และเสนอรายชื่อผู้ตรวจรับพัสดุหรือคณะกรรมการตรวจรับพัสดุ โดยวิธีเฉพาะเจาะจง`, 2.75, 4.4);
+    doc.text(`คุณลักษณะเฉพาะและขอบเขตของงานพัสดุ และเสนอรายชื่อผู้ตรวจรับพัสดุหรือคณะกรรมการตรวจรับพัสดุโดยวิธีเฉพาะเจาะจง`, 2.75, 4.4);
     doc.text(`คณบดีคณะวิศวกรรมศาสตร์  `, 2.8, 5.4);
 
     //body
@@ -158,6 +158,7 @@ function createPDF() {
     tenthTofourteenth_line(doc)
     fiveteenthTonineteenth_line(doc, pageWidth, formData.inspector, formData.inspectorCommitteeMember1, formData.inspectorCommitteeMember2);
     signature_box1(doc, pageWidth, 'ผู้ขอให้จัดหาหรือผู้รับผิดชอบ', formData.responsiblePerson);
+    rest_of_first_page (doc, pageWidth, formData.responsiblePerson);
 
 
     // use blob to preview pdf before download
