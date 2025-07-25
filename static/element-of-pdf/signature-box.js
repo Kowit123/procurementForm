@@ -1,14 +1,15 @@
 function signature_box1(doc, pageWidth, const1, const2, y = 17.8) {
     const text0 = `(1)`
     const text1 = `ลงชื่อ ..................................................... ${const1}`;
-    const text2 = `(                                                       ) `;
-    const text3 = `  .......................................................................   ......../......../........`;
+    const text2 = `(                                                       )`;
+    const text3 = ` .........................................................................`;
     const text4 = `${const2}`
 
     const start1 = pageWidth - 2;
     const x1     = pageWidth - doc.getTextWidth(text1) - 2;
     const x2     = x1;
     const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth(text4)/2);
+    const x5     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
 
     doc.text(text0, x1 - 0.75, y);
     doc.text(text1, start1, y, {align: 'right'});
@@ -16,8 +17,10 @@ function signature_box1(doc, pageWidth, const1, const2, y = 17.8) {
     doc.text(text2, x2, y);
     doc.text(text3, x2, y + 0.05);
     doc.text(text4, x4, y);
+    y += 0.6;
+    doc.text('........../........../..........', x5, y);
     
-    return y + 0.6;  // Return updated y position
+    return y += 0.6;  // Return updated y position
 }
 
 function signature_box2(doc, pageWidth, const1, const2, y = 26.2) {

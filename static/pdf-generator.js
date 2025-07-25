@@ -160,7 +160,7 @@ function createPDF() {
     currentY = tenthTofourteenth_line(doc, currentY);
     currentY = fiveteenthTonineteenth_line(doc, pageWidth, formData.inspector, formData.inspectorCommitteeMember1, formData.inspectorCommitteeMember2, currentY);
     currentY = signature_box1(doc, pageWidth, 'ผู้ขอให้จัดหาหรือผู้รับผิดชอบ', formData.responsiblePerson, currentY);
-    rest_of_first_page(doc, pageWidth, formData.responsiblePerson, currentY);
+    currentY = rest_of_first_page(doc, pageWidth, formData.responsiblePerson, currentY);
 
 
     // use blob to preview pdf before download

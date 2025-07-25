@@ -1,8 +1,8 @@
-function rest_of_first_page(doc, pageWidth, const1, const2, y = 19) {
+function rest_of_first_page(doc, pageWidth, const1, const2, y = 20.4) {
     doc.setFont('THSarabunNew', 'bold')
     doc.text('เรียน', 2, y)
     doc.setFont('THSarabunNew', 'normal')
-    doc.text('คณบดีคณะวิศวกรรมศาสตร์ ผ่านหัวหน้าเจ้าหน้าที่', 3, y)
+    doc.text('คณบดีคณะวิศวกรรมศาสตร์ ผ่านหัวหน้าเจ้าหน้าที่', 2.8, y)
     y += 0.6;
     doc.text('จึงเรียนมาเพื่อโปรดพิจารณาและขออนุมัติ', 3.5, y)
     y += 0.6;
