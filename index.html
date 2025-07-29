@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procurement Document Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="static/style.css">
 </head>
 
@@ -13,14 +14,15 @@
     <div class="container">
         <!-- Hidden image for PDF generation -->
         <img id="img" src="static/img/krut.jpg" style="display: none;" alt="Logo" />
-        
+
         <div class="header-section">
-            <div class="example-document-section">
-                <button type="button" id="exampleDocBtn" class="example-doc-button">📄 ตัวอย่างเอกสาร</button>
-            </div>
             <div class="title-section">
                 <h1 class="page-title">เอกสารขออนุมัติจัดซื้อจัดจ้าง</h1>
                 <h3 class="sub-title">ระบบสร้างเอกสารเพื่อใช้ในการขออนุมัติจัดซื้อจัดจ้าง</h3>
+            </div>
+            <div class="date-input">
+                <label for="Date">ณ วันที่</label>
+                <input id="thai-datepicker1" type="text" placeholder="ว/ด/ปี" title="เลือกวันที่">
             </div>
         </div>
 
@@ -131,31 +133,12 @@
 
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="static/thai-utils.js"></script>
     <script>
 
-        // Set current date in Thai Buddhist Era format when page loads
-        // But only store it in a hidden field for document generation, not display in UI
-        document.addEventListener('DOMContentLoaded', function () {
-            const currentDate = new Date();
-            const thaiDate = convertToThaiDate(currentDate);
-
-            // Create hidden input for current date if it doesn't exist
-            let currentDateInput = document.getElementById('current_date');
-            if (!currentDateInput) {
-                currentDateInput = document.createElement('input');
-                currentDateInput.type = 'hidden';
-                currentDateInput.id = 'current_date';
-                currentDateInput.name = 'current_date';
-                document.getElementById('procurementForm').appendChild(currentDateInput);
-            }
-
-            // Set the value of the hidden input field for use in document generation
-            currentDateInput.value = thaiDate;
-
-            // Note: Date display in UI has been removed as per requirements
-            // The date will only be used for document generation
-        });
+        // Initialize Thai date pickers
+        setupThaiDatePickers();
 
         // Improved form validation for task 3.2
         document.getElementById('procurementForm').addEventListener('submit', function (event) {
@@ -201,11 +184,7 @@
             });
         });
 
-        // Example document button functionality
-        document.getElementById('exampleDocBtn').addEventListener('click', function () {
-            // Open example document PDF in new tab
-            window.open('public/example-document.pdf', '_blank');
-        });
+
 
         // Preview button functionality
         document.getElementById('previewBtn').addEventListener('click', function () {
@@ -238,7 +217,7 @@
     <script src="static/element-of-pdf/third-line.js"></script>
     <script src="static/element-of-pdf/4th-To-19th-line.js"></script>
     <script src="static/element-of-pdf/rest-of-first-page.js"></script>
-    <script src="static/pdf-generator.js"></script>  
+    <script src="static/pdf-generator.js"></script>
     <script src="static/font/THSarabunNew-bold.js"></script>
     <script src="static/font/THSarabunNew-normal.js"></script>
 </body>

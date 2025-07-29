@@ -85,17 +85,60 @@ h3 {
     font-size: 1.2em;
 }
 
-/* Example document section styling - positioned to the left */
-.example-document-section {
+/* Date input section styling */
+.date-input {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
+    width: 200px;
+    height: 70px;
     z-index: 10;
     margin: 0;
-    padding: 5px 0;
+    padding: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #adadad;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.example-doc-button {
+.date-input label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 5px;
+}
+
+.date-input input {
+    width: 150px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-family: 'Sarabun', Arial, sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.date-input input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+}
+
+.date-input:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 5px;
+    font-family: 'Sarabun', Arial, sans-serif;
+}
+
+/* .example-doc-button {
     background-color: #17a2b8 !important;
     color: white;
     width: 12rem;
@@ -110,13 +153,13 @@ h3 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 15;
-}
+} */
 
-.example-doc-button:hover {
+/* .example-doc-button:hover {
     background-color: #138496 !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
+} */
 
 .form-group {
     margin-bottom: 15px;
@@ -429,6 +472,21 @@ input.error:focus {
         padding: 15px;
     }
 
+    /* Date input mobile responsive */
+    .date-input {
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+        order: 3;
+        padding: 15px;
+    }
+
+    .date-input input {
+        width: 100%;
+        max-width: 200px;
+    }
+
     /* Improve form field spacing on mobile */
     .form-section label {
         margin-top: 12px;
@@ -595,4 +653,46 @@ input.error:focus {
         width: 100%;
         text-align: left;
     }
+}
+
+/* Flatpickr Thai date picker styling */
+.flatpickr-input {
+    width: 100px !important;
+    text-align: center;
+    font-family: 'Sarabun', Arial, sans-serif;
+}
+
+.flatpickr-calendar {
+    font-family: 'Sarabun', Arial, sans-serif;
+}
+
+.flatpickr-calendar .flatpickr-month {
+    background: #0056b3;
+    color: white;
+}
+
+.flatpickr-calendar .flatpickr-weekday {
+    background: #e9f0f8;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+.flatpickr-calendar .flatpickr-day:hover {
+    background: #e9f0f8;
+    color: #0056b3;
+}
+
+.flatpickr-calendar .flatpickr-day.selected {
+    background: #0056b3;
+    color: white;
+}
+
+.flatpickr-calendar .flatpickr-day.today {
+    border-color: #0056b3;
+}
+
+.date-input .flatpickr-input {
+    border: 1px solid #adadad;
+    border-radius: 4px;
+    padding: 5px;
 }

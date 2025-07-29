@@ -137,13 +137,8 @@ function createPDF() {
     doc.setFont("THSarabunNew", "normal");
     doc.text(`งานพัสดุ คณะวิศวกรรมศาสตร์  มหาวิทยาลัยมหาสารคาม เบอร์โทรภายใน 3014 `, 3.75, 2.6);
     doc.text(`อว 0605.14(1.1)/ `, 2.25, 3.2);
-    // Use the Thai date conversion function
-    try {
-        doc.text(`${convertToThaiDate(new Date())}`, 11.25, 3.2);
-    } catch (error) {
-        console.log('Error with Thai date conversion:', error);
-        doc.text(`${new Date().toLocaleDateString('th-TH')}`, 11.25, 3.2);
-    }
+    // Use the date from form data
+    doc.text(`${formData.documentDate}`, 11.25, 3.2);
     doc.text(`ขอให้จัดหาพัสดุและขออนุมัติจัดซื้อจัดจ้าง พร้อมเสนอรายชื่อเพื่อแต่งตั้งผู้รับผิดชอบหรือคณะกรรมการกำหนดรายละเอียด`, 2.75, 3.8);
     doc.text(`คุณลักษณะเฉพาะและขอบเขตของงานพัสดุ และเสนอรายชื่อผู้ตรวจรับพัสดุหรือคณะกรรมการตรวจรับพัสดุโดยวิธีเฉพาะเจาะจง`, 2.75, 4.4);
     doc.text(`คณบดีคณะวิศวกรรมศาสตร์  `, 2.8, 5.4);
@@ -172,6 +167,10 @@ function createPDF() {
 // function to get form data
 function getFormData() {
     const formData = {};
+
+    // Get date information
+    const dateInput = document.getElementById('Date');
+    formData.documentDate = dateInput && dateInput.value.trim() ? dateInput.value : convertToThaiDate(new Date());
 
     // Get responsible person information
     formData.responsiblePerson = document.getElementById('responsible_person').value;

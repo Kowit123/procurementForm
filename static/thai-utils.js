@@ -305,3 +305,98 @@ function formatShortBuddhistDate(date) {
     const day = date.getDate();
     return `${day}/${month}/${buddhistYear}`;
 }
+/**
+
+ * Initialize Flatpickr Thai date pickers
+ * This function sets up Thai Buddhist Era date pickers with proper formatting
+ */
+function initializeThaiDatePickers() {
+    // flatpickr date (แปลง พ.ศ.)
+    const ids = ["thai-datepicker1", "thai-datepicker2", "thai-datepicker3", "thai-datepicker4", "thai-datepicker5", "thai-datepicker6", "thai-datepicker7", "thai-datepicker8", "thai-datepicker9", "thai-datepicker10"];
+    const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+    
+    ids.forEach(id => {
+        const thaidate = document.getElementById(id);
+        if (!thaidate) return; // Skip if element doesn't exist
+        
+        const originalPlaceholder = thaidate.getAttribute("placeholder") || "ว/ด/ปี";
+        
+        flatpickr(`#${id}`, {
+            locale: "th",
+            allowInput: true,
+            altInput: true,
+            altFormat: "j F Y", // j = day, F = full month, Y = year
+            dateFormat: "Y-m-d", // for storing (optional)
+            defaultDate: new Date(), // Set default to today
+            onChange: (_, __, instance) => convertToBE(instance),
+            onReady: (_, __, instance) => {
+                convertToBE(instance);
+                setTimeout(() => {
+                    thaidate.setAttribute("placeholder", originalPlaceholder);
+                }, 0);
+            },
+            formatDate: (date, format, locale) => {
+                const day = date.getDate();
+                const month = thaiMonths[date.getMonth()];
+                const year = date.getFullYear() + 543;
+                return `${day} ${month} ${year}`;
+            }
+        });
+    });
+
+    /**
+     * Convert selected date to Buddhist Era format
+     * @param {Object} instance - Flatpickr instance
+     */
+    function convertToBE(instance) {
+        const date = instance.selectedDates[0];
+        if (!date) return;
+        
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = (date.getFullYear() + 543).toString();
+        const formatted = `${day}/${month}/${year}`;
+        
+        // Update the actual input value
+        instance.element.value = formatted;
+        
+        // Create hidden input for current date if it doesn't exist
+        let currentDateInput = document.getElementById('current_date');
+        if (!currentDateInput) {
+            currentDateInput = document.createElement('input');
+            currentDateInput.type = 'hidden';
+            currentDateInput.id = 'current_date';
+            currentDateInput.name = 'current_date';
+            const form = document.getElementById('procurementForm');
+            if (form) {
+                form.appendChild(currentDateInput);
+            }
+        }
+
+        // Set the value for document generation (full Thai format)
+        const thaiDate = convertToThaiDate(date);
+        currentDateInput.value = thaiDate;
+    }
+
+    // Initialize with current date for the first picker
+    const firstPicker = document.getElementById('thai-datepicker1');
+    if (firstPicker) {
+        const currentDate = new Date();
+        const day = currentDate.getDate().toString().padStart(2, "0");
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+        const year = (currentDate.getFullYear() + 543).toString();
+        firstPicker.value = `${day}/${month}/${year}`;
+    }
+}
+
+/**
+ * Initialize Thai date picker when DOM is loaded
+ * Call this function to set up all Thai date pickers on the page
+ */
+function setupThaiDatePickers() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeThaiDatePickers);
+    } else {
+        initializeThaiDatePickers();
+    }
+}
