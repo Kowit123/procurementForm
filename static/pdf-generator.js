@@ -167,6 +167,8 @@ doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
 doc.setFontSize(14);
 y=2;
 doc.text('ความเหนของงานการเงินและบัญชี', 3.5, y);
+y = page2_1(doc, pageWidth, y, formData.grandTotal);
+y = page2_2(doc, pageWidth, y, formData.grandTotalText);
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");
