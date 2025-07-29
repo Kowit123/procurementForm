@@ -59,4 +59,90 @@ function createArrow(doc, pageWidth, y = 26.2) {
     );
 }
 
+function signature_box3(doc, pageWidth, y) {
+    const text0 = `(3)`
+    const text1 = `ลงชื่อ .....................................................เจ้าหน้าที่การเงินและบัญชี`;
+    const text2 = `(                                                       ) `;
+    const text3 = ` .........................................................................`;
+
+    const start1 = 5;
+    const x1     = 5;
+    const x2     = x1;
+    const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
+
+    y+=0.6;
+    doc.text(text0, x1 - 0.5, y);
+    doc.text(text1, start1, y);
+    y += 0.6;
+    doc.text(text2, x2, y);
+    doc.text(text3, x2, y + 0.05);
+    y += 0.6;
+    doc.text('........../........../..........',x4, y);
+    y += 0.6;
+    return y;
+}
+
+function signature_box4(doc, pageWidth, y) {
+    const text01 = "ความเห็นของหัวหน้ากลุ่มงาน"
+    const text02 = "(  ) ได้ดำเนินการตรวจสอบ ความถูกต้องแล้วและเห็นควรเสนอเพื่อขออนุมัติ"
+    const text03 = "(  ) อื่นๆ ............................."
+    const text0 = `(4)`
+    const text1 = `ลงชื่อ .....................................................หัวหน้ากลุ่มงานนโยบาย แผนและคลัง`;
+    const text2 = `(                                                       ) `;
+    const text3 = ` .........................................................................`;
+
+    const start1 = 5;
+    const x1     = 5;
+    const x2     = x1;
+    const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
+
+    y+=0.6;
+    doc.text(text01, 3.5, y);
+    y+=0.6;
+    doc.text(text02, 4.5, y);
+    y+=0.6;
+    doc.text(text03, 4.5, y);
+    y+=0.8;
+    doc.text(text0, x1 - 0.5, y);
+    doc.text(text1, start1, y);
+    y += 0.6;
+    doc.text(text2, x2, y);
+    doc.text(text3, x2, y + 0.05);
+    y += 0.6;
+    doc.text('........../........../..........',x4, y);
+    y += 0.6;
+    return y;
+}
+
+function signature_box5(doc, pageWidth, y) {
+    const text01 = "ความเห็นของหัวหน้าเจ้าหน้าที่"
+    const text02 = "(  ) ได้ตรวจสอบความถูกต้องแล้ว เห็นควรเสนอเพื่อขออนุมัติ"
+    const text03 = "(  ) อื่นๆ ............................."
+    const text0 = `(5)`
+    const text1 = `ลงชื่อ .....................................................หัวหน้าเจ้าหน้าที่`;
+    const text2 = `(                                                       ) `;
+    const text3 = ` .........................................................................`;
+
+    const start1 = 5;
+    const x1     = 5;
+    const x2     = x1;
+    const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
+
+    y+=0.6;
+    doc.text(text01, 3.5, y);
+    y+=0.6;
+    doc.text(text02, 4.5, y);
+    y+=0.6;
+    doc.text(text03, 4.5, y);
+    y+=0.8;
+    doc.text(text0, x1 - 0.5, y);
+    doc.text(text1, start1, y);
+    y += 0.6;
+    doc.text(text2, x2, y);
+    doc.text(text3, x2, y + 0.05);
+    y += 0.6;
+    doc.text('........../........../..........',x4, y);
+    y += 0.6;
+    return y;
+}
 

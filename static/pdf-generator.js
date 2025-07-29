@@ -169,6 +169,9 @@ y=2;
 doc.text('ความเหนของงานการเงินและบัญชี', 3.5, y);
 y = page2_1(doc, pageWidth, y, formData.grandTotal);
 y = page2_2(doc, pageWidth, y, formData.grandTotalText);
+y = signature_box3(doc, pageWidth, y);
+y = signature_box4(doc, pageWidth, y);
+y = signature_box5(doc, pageWidth, y);
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");
