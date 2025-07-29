@@ -122,7 +122,7 @@ function createPDF() {
     }
     doc.setFont("THSarabunNew", "normal");
     doc.setFontSize(12);
-    doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'center' });
+    doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
     doc.setFont("THSarabunNew", "bold");
     doc.setFontSize(16);
     doc.text('บันทึกข้อความ', pageWidth / 2, 2, { align: 'center' });
@@ -157,6 +157,16 @@ function createPDF() {
     currentY = signature_box1(doc, pageWidth, 'ผู้ขอให้จัดหาหรือผู้รับผิดชอบ', formData.responsiblePerson, currentY);
     currentY = rest_of_first_page(doc, pageWidth, formData.responsiblePerson, currentY);
 
+
+
+doc.addPage();
+doc.setFont("THSarabunNew", "normal");
+doc.setFontSize(12);
+doc.text('-2-', pageWidth / 2, 0.5, { align: 'center' });
+doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
+doc.setFontSize(14);
+y=2;
+doc.text('ความเหนของงานการเงินและบัญชี', 3.5, y);
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");
