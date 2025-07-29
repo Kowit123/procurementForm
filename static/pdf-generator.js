@@ -166,7 +166,7 @@ doc.text('-2-', pageWidth / 2, 0.5, { align: 'center' });
 doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
 doc.setFontSize(14);
 y=2;
-doc.text('ความเหนของงานการเงินและบัญชี', 3.5, y);
+doc.text('ความเห็นของงานการเงินและบัญชี', 3.5, y);
 y = page2_1(doc, pageWidth, y, formData.grandTotal);
 y = page2_2(doc, pageWidth, y, formData.grandTotalText);
 y = signature_box3(doc, pageWidth, y);
