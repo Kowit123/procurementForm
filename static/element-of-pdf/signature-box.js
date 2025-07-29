@@ -146,3 +146,72 @@ function signature_box5(doc, pageWidth, y) {
     return y;
 }
 
+function signature_box6(doc, pageWidth, y) {
+    const text01 = "ความเห็นของ .................................................................. /ผู้ที่ได้รับมอบหมาย"
+    const text02 = "(  ) ได้ตรวจสอบความถูกต้องแล้ว เห็นควรอนุมัติ "
+    const text03 = "(  ) อื่นๆ ............................."
+    const text0 = `(6)`
+    const text1 = `ลงชื่อ ...............................................................`;
+    const text2 = `(                                                       ) `;
+    const text3 = ` .........................................................................`;
+
+    const start1 = 5;
+    const x1     = 5;
+    const x2     = x1;
+    const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
+
+    y+=0.6;
+    doc.text(text01, 3.5, y);
+    y+=0.6;
+    doc.text(text02, 4.5, y);
+    y+=0.6;
+    doc.text(text03, 4.5, y);
+    y+=0.8;
+    doc.text(text0, x1 - 0.5, y);
+    doc.text(text1, start1, y);
+    y += 0.6;
+    doc.text(text2, x2, y);
+    doc.text(text3, x2, y + 0.05);
+    y += 0.6;
+    doc.text('........../........../..........',x4, y);
+    y += 0.6;
+    return y;
+}
+
+
+function signature_box7(doc, pageWidth, y) {
+    const text0 = `(7)`
+    const text1 = `ลงชื่อ ...............................................................`;
+    const text2 = `(                                                       ) `;
+    const text3 = ` .........................................................................`;
+
+    const start1 = 5;
+    const x1     = 5;
+    const x2     = x1;
+    const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
+
+    y+=0.6;
+    doc.setFont('THSarabunNew', 'bold');
+    doc.text("คำสั่ง", 3.5, y);
+    doc.setFont('THSarabunNew', 'normal');
+    doc.text("คณบดีคณะวิศวกรรมศาสตร์/ผู้ที่ได้รับมอบหมาย", 4.3, y);
+    y+=0.6;
+    doc.text('เพื่อโปรด', 4.5, y);
+    doc.text("(  ) ทราบ/ตามเสนอ", 6, y);
+    y+=0.6;
+    doc.text("(  ) เห็นควร", 6, y);
+    y+=0.6;
+    doc.text("(  ) อนุมัติ", 6, y);
+    y+=0.6;
+    doc.text("(  ) ไม่อนุมัติ", 6, y);
+    y+=0.8;
+    doc.text(text0, x1 - 0.5, y);
+    doc.text(text1, start1, y);
+    y += 0.6;
+    doc.text(text2, x2, y);
+    doc.text(text3, x2, y + 0.05);
+    y += 0.6;
+    doc.text('........../........../..........',x4, y);
+    y += 0.6;
+    return y;
+}

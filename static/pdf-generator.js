@@ -172,6 +172,11 @@ y = page2_2(doc, pageWidth, y, formData.grandTotalText);
 y = signature_box3(doc, pageWidth, y);
 y = signature_box4(doc, pageWidth, y);
 y = signature_box5(doc, pageWidth, y);
+y = signature_box6(doc, pageWidth, y);
+y = signature_box7(doc, pageWidth, y);
+y += 1.2;
+doc.text(`ความเห็น       /3...`, pageWidth - 2, y, {align: 'right'} );
+createArrow(doc, pageWidth, y);
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");
