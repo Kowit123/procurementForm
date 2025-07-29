@@ -35,6 +35,9 @@ function page2_2(doc, pageWidth, y, Const1) {
     const text1 = `(                                                      )`;
     const dot1 = '.......................................................................';
     const text101 = `${Const1}`
+    const text2 = 'จาก (  ) งบประมาณแผ่นดิน (  ) งบประมาณเงินรายได้ ประจำปี 25......... ';
+    const text3 = "ตามแผนงาน : (  ) พื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพคน ผลผลิต : ผู้สำเร็จการศึกษาด้านวิทยาศาสตร์และเทคโนโลยี ";
+    const text4 = "หมวดรายจ่าย: (  ) ค่าครุภัณฑ์ (  ) ค่าวัสดุ (  ) ค่าใช้สอย (  ) ค่าสาธารณูปโภค (  ) เงินอุดหนุน (  ) รายจ่ายอื่นๆ ด้วยความถูกต้องแล้ว";
 
     const text101Width = doc.getTextWidth(text101);
     const dot1Width = doc.getTextWidth(dot1);
@@ -48,4 +51,11 @@ function page2_2(doc, pageWidth, y, Const1) {
     doc.text(text1, 2, y);
     doc.text(text101, x101, y);                            
     doc.text(dot1, xDot1, y + 0.05);
+    doc.text(text2, x2start, y);
+    y+=0.6;
+    doc.text(text3, 2, y);
+    y+=0.6;
+    doc.text(text4, 2, y);
+    y+=0.6;
+    return y;
 }
