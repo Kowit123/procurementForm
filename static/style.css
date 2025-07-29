@@ -321,6 +321,42 @@ input.error:focus {
     background-color: #c92500;
 }
 
+/* VAT section styles */
+.vat-section {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.vat-options label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.vat-radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.vat-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: normal !important;
+    margin-bottom: 0 !important;
+    cursor: pointer;
+}
+
+.vat-option input[type="radio"] {
+    width: auto;
+    margin: 0;
+    cursor: pointer;
+}
+
 .total-section {
     display: flex;
     justify-content: flex-end;
@@ -330,6 +366,15 @@ input.error:focus {
     background-color: #e9f0f8;
     border-radius: 4px;
     gap: 15px;
+    flex-wrap: wrap;
+}
+
+.vat-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
 }
 
 .total-supply-amount {
@@ -528,16 +573,34 @@ input.error:focus {
         margin-left: 5px;
     }
 
+    /* VAT section responsive */
+    .vat-radio-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .vat-option {
+        margin-bottom: 5px;
+    }
+
     /* Total section responsive */
     .total-section {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .vat-row {
         justify-content: space-between;
+        width: 100%;
     }
 
     .total-supply-amount,
     .total-label,
-    .total-amount {
-        margin: 5px 0;
+    .total-amount,
+    .vat-label,
+    .vat-amount {
+        margin: 2px 0;
     }
 
     .form-footer {
@@ -640,18 +703,37 @@ input.error:focus {
         margin-bottom: 10px;
     }
 
+    /* VAT section on very small screens */
+    .vat-section {
+        padding: 10px;
+    }
+
+    .vat-radio-group {
+        gap: 8px;
+    }
+
     /* Improve total section on very small screens */
     .total-section {
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
+        padding: 8px;
+    }
+
+    .vat-row {
+        justify-content: space-between;
+        width: 100%;
+        margin: 2px 0;
     }
 
     .total-supply-amount,
     .total-label,
-    .total-amount {
-        width: 100%;
+    .total-amount,
+    .vat-label,
+    .vat-amount {
+        width: auto;
         text-align: left;
+        font-size: 0.9em;
     }
 }
 

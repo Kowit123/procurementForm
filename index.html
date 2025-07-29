@@ -101,9 +101,32 @@
                         <button type="button" id="addSupplyRow" class="add-button">+ เพิ่มรายการ</button>
                         <button type="button" id="deleteSupplyRow" class="delete-button" title="ลบรายการ">-
                             ลบรายการ</button>
+                        <div class="vat-section">
+                            <div class="vat-options">
+                                <label>สถานะ VAT:</label>
+                                <div class="vat-radio-group">
+                                    <label class="vat-option">
+                                        <input type="radio" name="vat_status" value="no_vat" checked>
+                                        ไม่มี VAT
+                                    </label>
+                                    <label class="vat-option">
+                                        <input type="radio" name="vat_status" value="vat_included">
+                                        รวม VAT แล้ว
+                                    </label>
+                                    <label class="vat-option">
+                                        <input type="radio" name="vat_status" value="vat_excluded">
+                                        ยังไม่รวม VAT
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="total-section">
                             <div class="total-supply-amount">จำนวนรายการ:</div>
                             <div class="total-supply-amount"><span id="totalItems">0</span> รายการ</div>
+                            <div class="vat-row" id="vatRow" style="display: none;">
+                                <div class="vat-label">VAT 7%:</div>
+                                <div class="vat-amount"><span id="vatAmount">0.00</span> บาท</div>
+                            </div>
                             <div class="total-label">ราคารวมทั้งสิ้น:</div>
                             <div class="total-amount"><span id="grandTotal">0.00</span> บาท</div>
                         </div>

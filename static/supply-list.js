@@ -165,23 +165,55 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Update grand total and item count
+    // Update grand total and item count with VAT calculation
     function updateTotals() {
         const sumInputs = document.querySelectorAll('input[name="sum_supply_price[]"]');
-        let grandTotal = 0;
+        let subtotal = 0;
         let itemCount = 0;
 
         sumInputs.forEach(function (input) {
             const value = parseFloat(input.value.replace(/,/g, '')) || 0;
             if (value > 0) {
-                grandTotal += value;
+                subtotal += value;
                 itemCount++;
             }
         });
 
+        // Get VAT status
+        const vatStatus = document.querySelector('input[name="vat_status"]:checked').value;
+        let vatAmount = 0;
+        let grandTotal = subtotal;
+
+        // Calculate based on VAT status
+        if (vatStatus === 'vat_excluded') {
+            // Calculate VAT on subtotal
+            vatAmount = subtotal * 0.07;
+            grandTotal = subtotal + vatAmount;
+            document.getElementById('vatRow').style.display = 'flex';
+        } else if (vatStatus === 'vat_included') {
+            // Calculate VAT from total (reverse calculation)
+            vatAmount = subtotal - (subtotal / 1.07);
+            grandTotal = subtotal;
+            document.getElementById('vatRow').style.display = 'flex';
+        } else {
+            // No VAT
+            vatAmount = 0;
+            grandTotal = subtotal;
+            document.getElementById('vatRow').style.display = 'none';
+        }
+
+        // Update display
         document.getElementById('totalItems').textContent = sumInputs.length;
+        document.getElementById('vatAmount').textContent = formatNumberWithCommas(vatAmount.toFixed(2));
         document.getElementById('grandTotal').textContent = formatNumberWithCommas(grandTotal.toFixed(2));
     }
+
+    // Add VAT status change listeners
+    document.querySelectorAll('input[name="vat_status"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            updateTotals();
+        });
+    });
 
     // Initialize calculation listeners for existing rows
     document.querySelectorAll('.supply-item').forEach(function (row) {
