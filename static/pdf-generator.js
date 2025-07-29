@@ -159,24 +159,28 @@ function createPDF() {
 
 
 
-doc.addPage();
-doc.setFont("THSarabunNew", "normal");
-doc.setFontSize(12);
-doc.text('-2-', pageWidth / 2, 0.5, { align: 'center' });
-doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
-doc.setFontSize(14);
-y=2;
-doc.text('ความเห็นของงานการเงินและบัญชี', 3.5, y);
-y = page2_1(doc, pageWidth, y, formData.grandTotal);
-y = page2_2(doc, pageWidth, y, formData.grandTotalText);
-y = signature_box3(doc, pageWidth, y);
-y = signature_box4(doc, pageWidth, y);
-y = signature_box5(doc, pageWidth, y);
-y = signature_box6(doc, pageWidth, y);
-y = signature_box7(doc, pageWidth, y);
-y += 1.2;
-doc.text(`ความเห็น       /3...`, pageWidth - 2, y, {align: 'right'} );
-createArrow(doc, pageWidth, y);
+    doc.addPage();
+    doc.setFont("THSarabunNew", "normal");
+    doc.setFontSize(12);
+    doc.text('-2-', pageWidth / 2, 0.5, { align: 'center' });
+    doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
+    doc.setFontSize(14);
+    y = 2;
+    doc.text('ความเห็นของงานการเงินและบัญชี', 3.5, y);
+    y = page2_1(doc, pageWidth, y, formData.grandTotal);
+    y = page2_2(doc, pageWidth, y, formData.grandTotalText);
+    y = signature_box3(doc, pageWidth, y);
+    y = signature_box4(doc, pageWidth, y);
+    y = signature_box5(doc, pageWidth, y);
+    y = signature_box6(doc, pageWidth, y);
+    y = signature_box7(doc, pageWidth, y);
+    y += 1.2;
+    doc.text(`ความเห็น       /3...`, pageWidth - 2, y, { align: 'right' });
+    createArrow(doc, pageWidth, y);
+
+    doc.addPage();
+    currentY = generateSupplyTable(doc, pageWidth, formData.supplies, currentY);
+
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");
@@ -209,6 +213,7 @@ function getFormData() {
     supplyRows.forEach(function (row, index) {
         const nameInput = row.querySelector('input[name="supply_name[]"]');
         const amountInput = row.querySelector('input[name="supply_amount[]"]');
+        const unitInput = row.querySelector('input[name="supply_unit[]"]');
         const priceInput = row.querySelector('input[name="supply_price_unit[]"]');
         const sumInput = row.querySelector('input[name="sum_supply_price[]"]');
         const isDomestic = row.querySelector(`input[name="product_origin_${index + 1}"][value="domestic"]`).checked;
@@ -217,6 +222,7 @@ function getFormData() {
             formData.supplies.push({
                 name: nameInput.value,
                 amount: amountInput ? parseFloat(amountInput.value) || 0 : 0,
+                unit: unitInput ? unitInput.value : '',
                 price: priceInput ? parseFloat(priceInput.value) || 0 : 0,
                 sum: sumInput ? parseFloat(sumInput.value) || 0 : 0,
                 isDomestic: isDomestic

@@ -75,8 +75,8 @@
                                 <tr>
                                     <th rowspan="2">รายการวัสดุ/งานจ้าง</th>
                                     <th rowspan="2">จำนวน</th>
-                                    <th rowspan="2">ราคาต่อหน่วย</th>
                                     <th rowspan="2">หน่วย</th>
+                                    <th rowspan="2">ราคาต่อหน่วย</th>
                                     <th rowspan="2">รวม</th>
                                     <th colspan="2">พัสดุผลิตที่</th>
                                 </tr>
@@ -89,8 +89,8 @@
                                 <tr class="supply-item">
                                     <td><input type="text" name="supply_name[]" required></td>
                                     <td><input type="text" name="supply_amount[]" min="1" required></td>
-                                    <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" required>
                                     <td><input type="text" name="supply_unit[]" required></td>
+                                    <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" required>
                                     </td>
                                     <td><input type="text" name="sum_supply_price[]" readonly></td>
                                     <td class="radio-cell"><input type="radio" name="product_origin_1" value="domestic"
@@ -244,6 +244,7 @@
     <script src="static/element-of-pdf/4th-To-19th-line.js"></script>
     <script src="static/element-of-pdf/rest-of-first-page.js"></script>
     <script src="static/element-of-pdf/page2.js"></script>
+    <script src="static/element-of-pdf/supply-table.js"></script>
     <script src="static/pdf-generator.js"></script>
     <script src="static/font/THSarabunNew-bold.js"></script>
     <script src="static/font/THSarabunNew-normal.js"></script>
