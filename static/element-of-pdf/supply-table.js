@@ -1,5 +1,5 @@
 // Supply table generator with pagination support
-function generateSupplyTable(doc, pageWidth, supplies, startY = 8) {
+function generateSupplyTable(doc, pageWidth, supplies, startY = 3) {
     // Initialize supplies as empty array if not provided
     if (!supplies) {
         supplies = [];
@@ -7,21 +7,21 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 8) {
 
     const itemsPerPage = 20; // Maximum items per page
     const rowHeight = 0.7;   // Increased for better readability
-    const headerHeight = 1.2; // Increased for formal appearance
+    const headerHeight = 1.4; // Increased for formal appearance
 
     // Table column widths (in cm) - optimized for formal layout
     const colWidths = {
         no: 0.8,        // ลำดับ (sequence number)
-        item: 5.0,      // รายการวัสดุ/งานจ้าง
-        amountUnit: 2.0, // จำนวน/หน่วย (combined)
+        item: 10.0,      // รายการวัสดุ/งานจ้าง
+        amountUnit: 1.5, // จำนวน/หน่วย (combined)
         price: 1.5,     // ราคาต่อหน่วย
-        total: 1.8,     // รวม
-        domestic: 1.0,  // ประเทศไทย
-        foreign: 1.0    // ต่างประเทศ
+        total: 1.5,     // รวม
+        domestic: 1.7,  // ประเทศไทย
+        foreign: 1.7    // ต่างประเทศ
     };
 
     // Table starting positions - centered for formal appearance
-    const tableX = 1.5;
+    const tableX = 1;
     const colPositions = {
         no: tableX,
         item: tableX + colWidths.no,
@@ -39,44 +39,53 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 8) {
     // Function to draw table header
     function drawTableHeader(y) {
         doc.setFont("THSarabunNew", "bold");
-        doc.setFontSize(11);
+        doc.setFontSize(14);
 
         const headerY = y;
         const tableWidth = Object.values(colWidths).reduce((sum, width) => sum + width, 0);
 
         // Main header row with thicker border
-        doc.setLineWidth(0.02);
+        doc.setLineWidth(0.01);
         doc.rect(tableX, headerY, tableWidth, headerHeight);
 
-        // Column separators
+        // Column separators - draw all except the one between domestic and foreign (for T-shape)
         let currentX = tableX;
         Object.values(colWidths).forEach((width, index) => {
             if (index < Object.values(colWidths).length - 1) {
                 currentX += width;
-                doc.line(currentX, headerY, currentX, headerY + headerHeight);
+                // Skip drawing the line between domestic and foreign columns in the upper part
+                if (currentX !== colPositions.foreign) {
+                    doc.line(currentX, headerY, currentX, headerY + headerHeight);
+                }
             }
         });
 
-        // Sub-header for origin columns
-        const originHeaderY = headerY + 0.6;
-        doc.line(colPositions.domestic, originHeaderY, colPositions.foreign + colWidths.foreign, originHeaderY);
-        doc.line(colPositions.foreign, headerY, colPositions.foreign, headerY + headerHeight);
+        // Create T-shaped layout for origin columns
+        const originHeaderY = headerY + 0.7;
 
-        // Header text with better positioning
+        // Horizontal line across both origin columns (top of the T)
+        doc.line(colPositions.domestic, originHeaderY, colPositions.foreign + colWidths.foreign, originHeaderY);
+
+        // Vertical line between domestic and foreign columns (stem of the T) - only from horizontal line down
+        doc.line(colPositions.foreign, originHeaderY, colPositions.foreign, headerY + headerHeight);
+
+        // Header text positioning
         const textYMain = headerY + 0.4;
         const textYSub = originHeaderY + 0.35;
 
-        doc.text('ลำดับ', colPositions.no + colWidths.no / 2, textYMain, { align: 'center' });
-        doc.text('รายการวัสดุ/งานจ้าง', colPositions.item + colWidths.item / 2, textYMain, { align: 'center' });
-        doc.text('จำนวน/หน่วย', colPositions.amountUnit + colWidths.amountUnit / 2, textYMain, { align: 'center' });
-        doc.text('ราคาต่อหน่วย', colPositions.price + colWidths.price / 2, textYMain, { align: 'center' });
-        doc.text('รวม', colPositions.total + colWidths.total / 2, textYMain, { align: 'center' });
+        // Main column headers
+        doc.text('ที่', colPositions.no + colWidths.no / 2, textYMain + 0.5, { align: 'center' });
+        doc.text('ชื่อพัสดุและลายละเอียดคุณลักษณะเฉพาะหรือขอบเขตของงานจ้าง', colPositions.item + colWidths.item / 2, textYMain + 0.5, { align: 'center' });
+        doc.text('จำนวน', colPositions.amountUnit + colWidths.amountUnit / 2, textYMain + 0.5, { align: 'center' });
+        doc.text('ราคา', colPositions.price + colWidths.price / 2, textYMain + 0.1, { align: 'center' });
+        doc.text('ต่อหน่วย', colPositions.price + colWidths.price / 2, textYMain + 0.6, { align: 'center' });
+        doc.text('รวม', colPositions.total + colWidths.total / 2, textYMain + 0.5, { align: 'center' });
 
-        // Origin header
+        // T-shaped origin header layout
         const originCenterX = colPositions.domestic + (colWidths.domestic + colWidths.foreign) / 2;
-        doc.text('พัสดุผลิตที่', originCenterX, headerY + 0.3, { align: 'center' });
-        doc.text('ประเทศไทย', colPositions.domestic + colWidths.domestic / 2, textYSub, { align: 'center' });
-        doc.text('ต่างประเทศ', colPositions.foreign + colWidths.foreign / 2, textYSub, { align: 'center' });
+        doc.text('พัสดุผลิตที่', originCenterX, headerY + 0.5, { align: 'center' }); // Top of T
+        doc.text('ประเทศไทย', colPositions.domestic + colWidths.domestic / 2, textYSub + 0.2, { align: 'center' }); // Left of T
+        doc.text('ต่างประเทศ', colPositions.foreign + colWidths.foreign / 2, textYSub + 0.2, { align: 'center' }); // Right of T
 
         doc.setLineWidth(0.01); // Reset line width
         return headerY + headerHeight;
@@ -85,7 +94,7 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 8) {
     // Function to draw table row
     function drawTableRow(supply, index, y) {
         doc.setFont("THSarabunNew", "normal");
-        doc.setFontSize(10);
+        doc.setFontSize(14);
 
         const tableWidth = Object.values(colWidths).reduce((sum, width) => sum + width, 0);
         doc.setLineWidth(0.01);
@@ -146,7 +155,7 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 8) {
     function addNewPageForTable() {
         doc.addPage();
         doc.setFont("THSarabunNew", "normal");
-        doc.setFontSize(12);
+        doc.setFontSize(14);
 
         // Page header
         doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
@@ -163,9 +172,6 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 8) {
     if (isFirstTable) {
         doc.setFont("THSarabunNew", "bold");
         doc.setFontSize(14);
-        const tableWidth = Object.values(colWidths).reduce((sum, width) => sum + width, 0);
-        const titleX = tableX + tableWidth / 2;
-        doc.text('รายการวัสดุที่ขอจัดหา', titleX, currentY, { align: 'center' });
         currentY += 0.8;
     }
 
@@ -194,7 +200,7 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 8) {
 
     // Add table border bottom with thicker line for formal appearance
     const tableWidth = Object.values(colWidths).reduce((sum, width) => sum + width, 0);
-    doc.setLineWidth(0.02);
+    doc.setLineWidth(0.01);
     doc.line(tableX, currentY, tableX + tableWidth, currentY);
     doc.setLineWidth(0.01);
 
