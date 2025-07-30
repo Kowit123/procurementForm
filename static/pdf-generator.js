@@ -179,7 +179,17 @@ function createPDF() {
     createArrow(doc, pageWidth, y);
 
     doc.addPage();
-    currentY = generateSupplyTable(doc, pageWidth, formData.supplies, formData.requestingFor, formData.grandTotal, formData.grandTotalText, currentY);
+    // Store formData globally for supply table access
+    window.currentFormData = formData;
+
+    // Prepare VAT information for supply table
+    const vatInfo = {
+        vatStatus: formData.vatStatus,
+        vatAmount: formData.vatAmount,
+        grandTotal: formData.grandTotal
+    };
+
+    currentY = generateSupplyTable(doc, pageWidth, formData.supplies, formData.requestingFor, formData.grandTotal, formData.grandTotalText, currentY, vatInfo);
 
 
     // use blob to preview pdf before download
@@ -229,6 +239,11 @@ function getFormData() {
             });
         }
     });
+
+    // Get VAT information
+    const vatStatus = document.querySelector('input[name="vat_status"]:checked').value;
+    formData.vatStatus = vatStatus;
+    formData.vatAmount = document.getElementById('vatAmount').textContent;
 
     // Get totals
     formData.totalItems = document.getElementById('totalItems').textContent;

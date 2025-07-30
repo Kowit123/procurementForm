@@ -1,5 +1,5 @@
 // Supply table generator with pagination support
-function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, startY = 2.4) {
+function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, startY = 2.4, vatInfo = null) {
     // Initialize supplies as empty array if not provided
     if (!supplies) {
         supplies = [];
@@ -105,6 +105,10 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
         doc.setFontSize(14);
 
         const tableWidth = Object.values(colWidths).reduce((sum, width) => sum + width, 0);
+
+        // Add background image for this row
+        addRowBackgroundImage(doc, tableX, y, tableWidth, rowHeight, index);
+
         doc.setLineWidth(0.01);
         doc.rect(tableX, y, tableWidth, rowHeight);
 
@@ -149,12 +153,15 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
 
             // Origin checkmarks with better positioning
             if (supply.isDomestic) {
-                doc.text('✓', colPositions.domestic + colWidths.domestic / 2, textY, { align: 'center' });
+                doc.text('/', colPositions.domestic + colWidths.domestic / 2, textY, { align: 'center' });
             } else if (supply.isDomestic === false) {
-                doc.text('✓', colPositions.foreign + colWidths.foreign / 2, textY, { align: 'center' });
+                doc.text('/', colPositions.foreign + colWidths.foreign / 2, textY, { align: 'center' });
             }
         }
         // Empty rows don't show any content, including index numbers
+
+        // Add middle image overlay for this row
+        addRowMiddleImage(doc, tableX, y, tableWidth, rowHeight, supply, index);
 
         return y + rowHeight;
     }
@@ -170,7 +177,12 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
         doc.text("การกำหนดรายละเอียดคุณลักษณะเฉพาะของพัสดุและหรือขอบเขตของงานจ้าง แนบท้ายบันทึกข้อความ", pageWidth / 2, 1, { align: "center" });
         doc.setFont("THSarabunNew", "normal");
         preheader(doc, pageWidth, Const1, Const2, Const3, 1.6);
-        return 3.2; // Return Y position for table start on new page
+
+        const newPageStartY = 3.2;
+        // Add background image to the new page as well
+        addTableBackgroundImage(doc, pageWidth, newPageStartY, itemsPerPage);
+
+        return newPageStartY; // Return Y position for table start on new page
     }
 
     // Add table title if it's the first table
@@ -178,8 +190,15 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
         currentY += 0.8;
     }
 
+    // Add background image behind the entire table
+    addTableBackgroundImage(doc, pageWidth, currentY, supplies.length);
+
     // Draw initial header
     currentY = drawTableHeader(currentY);
+
+    // Calculate total pages needed
+    const totalPages = Math.ceil(supplies.length / itemsPerPage);
+    let currentPage = 1;
 
     // Draw each supply item
     supplies.forEach((supply, index) => {
@@ -188,6 +207,7 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
             currentY = addNewPageForTable();
             currentY = drawTableHeader(currentY);
             itemsOnCurrentPage = 0;
+            currentPage++;
         }
 
         currentY = drawTableRow(supply, index, currentY);
@@ -208,6 +228,18 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
     doc.line(tableX, currentY, tableX + tableWidth, currentY);
     doc.setLineWidth(0.01);
 
+    // Check if this is the last table/page and add additional content
+    const isLastTable = currentPage === totalPages;
+    if (isLastTable) {
+        // Use passed vatInfo or get from global formData
+        const finalVatInfo = vatInfo || {
+            vatStatus: window.currentFormData?.vatStatus || 'no_vat',
+            vatAmount: window.currentFormData?.vatAmount || '0.00',
+            grandTotal: window.currentFormData?.grandTotal || '0.00'
+        };
+        currentY = addLastTableContent(doc, pageWidth, currentY, supplies.length, finalVatInfo);
+    }
+
     return currentY + 0.5; // Return Y position after table
 }
 
@@ -216,6 +248,105 @@ function formatNumberWithCommas(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
+// Function to add content only to the last table
+function addLastTableContent(doc, _pageWidth, currentY, _totalItems, vatInfo) {
+    doc.setFont("THSarabunNew", "normal");
+    doc.setFontSize(14);
+
+    // Parse numeric values
+    const grandTotal = parseFloat(vatInfo.grandTotal.replace(/,/g, ''));
+    const vatAmount = parseFloat(vatInfo.vatAmount.replace(/,/g, ''));
+
+    // Table dimensions to match the supply table
+    const tableX = 1;
+    const tableWidth = 18.7; // Match the supply table width
+    const rowHeight = 0.7;
+    const boxStartY = currentY + 0.1; // Small gap from table
+
+    // Calculate number of rows needed based on VAT status
+    let numberOfRows = 0;
+    let boxContent = [];
+
+    // Prepare content based on VAT status
+    switch (vatInfo.vatStatus) {
+        case 'no_vat':
+            numberOfRows = 1;
+            boxContent = [
+                { label: 'ยอดรวม(ไม่คิดภาษี)', value: `เป็นเงิน ${formatNumberWithCommas(grandTotal.toFixed(2))} บาท` }
+            ];
+            break;
+
+        case 'vat_included':
+            const subtotalIncluded = grandTotal - vatAmount;
+            numberOfRows = 3;
+            boxContent = [
+                { label: 'ยอดรวม(ไม่รวมภาษี)', value: `${formatNumberWithCommas(subtotalIncluded.toFixed(2))} บาท` },
+                { label: 'ภาษีมูลค่าเพิ่ม 7%', value: `${vatInfo.vatAmount} บาท` },
+                { label: 'รวมทั้งสิ้น', value: `เป็นเงิน ${vatInfo.grandTotal} บาท` }
+            ];
+            break;
+
+        case 'vat_excluded':
+            const subtotalExcluded = grandTotal - vatAmount;
+            numberOfRows = 3;
+            boxContent = [
+                { label: 'ยอดรวม(ไม่รวมภาษี)', value: `${formatNumberWithCommas(subtotalExcluded.toFixed(2))} บาท` },
+                { label: 'ภาษีมูลค่าเพิ่ม 7%', value: `${vatInfo.vatAmount} บาท` },
+                { label: 'รวมทั้งสิ้น', value: `เป็นเงิน ${vatInfo.grandTotal} บาท` }
+            ];
+            break;
+
+        default:
+            numberOfRows = 1;
+            boxContent = [
+                { label: 'รวมทั้งสิ้น(ไม่คิดภาษี)', value: `เป็นเงิน ${formatNumberWithCommas(grandTotal.toFixed(2))} บาท` }
+            ];
+            break;
+    }
+
+    // Draw the connected box
+    const boxHeight = numberOfRows * rowHeight;
+
+    // Set line width for box border
+    doc.setLineWidth(0.01);
+
+    // Draw the main box rectangle
+    doc.rect(tableX, boxStartY, tableWidth, boxHeight);
+
+    // Draw horizontal lines between rows
+    for (let i = 1; i < numberOfRows; i++) {
+        const lineY = boxStartY + (i * rowHeight);
+        doc.line(tableX, lineY, tableX + tableWidth, lineY);
+    }
+
+    // Draw vertical separator line (similar to table structure)
+    const separatorX = tableX + tableWidth * 0.5775; // 60% from left for label/value separation
+    doc.line(separatorX, boxStartY, separatorX, boxStartY + boxHeight);
+
+    // Add content to each row
+    boxContent.forEach((content, index) => {
+        const textY = boxStartY + (index * rowHeight) + (rowHeight / 2) + 0.1;
+
+        // Label on the left side
+        doc.text(content.label, tableX + 0.2, textY);
+
+        // Value on the right side, right-aligned
+        doc.text(content.value, tableX + tableWidth - 0.2, textY, { align: 'right' });
+    });
+
+    // Reset line width
+    doc.setLineWidth(0.01);
+
+    doc.setFont('THSarabunNew', 'normal');
+    doc.setFontSize(14);
+    let y = boxStartY + boxHeight + 0.6;
+    doc.text('ได้กำหนดการส่งมอบพัสดุ ภายใน 30 วัน/วันเวลาทำการ นับถัดจากวันลงนามในใบสั่งซื้อ/ใบสั่งจ้างหรือหนังสือข้อตกลง', 2, y);
+    y+=0.6;
+    doc.text('โดยเกณฑ์ที่ใช้ในการพิจารณาเกณฑ์ราคาเป็นสำคัญ', 1, y)
+
+
+    return boxStartY + boxHeight;
+}
 
 
 function preheader(doc, pageWidth, Const1, Const2, Const3, y) {
@@ -249,4 +380,50 @@ function preheader(doc, pageWidth, Const1, Const2, Const3, y) {
     doc.text(text202, 1 + doc.getTextWidth(dot2) + doc.getTextWidth(text101) + doc.getTextWidth('บาท') + 0.2 + doc.getTextWidth(dot4) / 2 - doc.getTextWidth(text202) / 2, y);
     doc.text('มีรายละเอียดพัสดุที่ต้องการดังต่อไปนี้', pageWidth - 1.4, y, { align: 'right' });
 
+}
+
+// Function to add background image behind the entire table
+function addTableBackgroundImage(doc, pageWidth, startY, totalItems) {
+    try {
+        // Get the logo image from the HTML page
+        const img = document.getElementById("msuimg");
+        if (img && img.complete) {
+            // Calculate exact table dimensions
+            const tableHeight = 16;
+            const tableWidth = 18.7; // Fixed table width
+            const tableX = 1; // Fixed table X position
+
+            // Create canvas to convert image to base64
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth || img.width;
+            canvas.height = img.naturalHeight || img.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            const imgData = canvas.toDataURL("image/JPEG");
+
+            // Calculate perfect center positioning
+            const imageSize = 10; // 6x6 cm image
+            const centerX = tableX + (tableWidth / 2) - (imageSize / 2); // Perfect horizontal center
+            const centerY = startY + (tableHeight / 2) - (imageSize / 2); // Perfect vertical center
+
+            // Add watermark image with good visibility
+            doc.setGState(new doc.GState({ opacity: 0.2 })); // Increased to 40% opacity for better visibility
+            doc.addImage(imgData, 'JPEG', centerX, centerY, imageSize, imageSize);
+            doc.setGState(new doc.GState({ opacity: 1.0 })); 
+        }
+    } catch (error) {
+        console.log('Could not add background image:', error);
+    }
+}
+
+// Function to add background image for individual rows - simplified
+function addRowBackgroundImage(doc, x, y, width, height, rowIndex) {
+    // Removed individual row background images to keep only the center image
+    // This function is kept for compatibility but does nothing
+}
+
+// Function to add image in the middle of table rows - simplified
+function addRowMiddleImage(doc, x, y, width, height, supply, rowIndex) {
+    // Removed individual row middle images to keep only the center table image
+    // This function is kept for compatibility but does nothing
 }
