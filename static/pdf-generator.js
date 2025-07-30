@@ -179,7 +179,7 @@ function createPDF() {
     createArrow(doc, pageWidth, y);
 
     doc.addPage();
-    currentY = generateSupplyTable(doc, pageWidth, formData.supplies, currentY);
+    currentY = generateSupplyTable(doc, pageWidth, formData.supplies, formData.requestingFor, formData.grandTotal, formData.grandTotalText, currentY);
 
 
     // use blob to preview pdf before download

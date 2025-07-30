@@ -1,9 +1,17 @@
 // Supply table generator with pagination support
-function generateSupplyTable(doc, pageWidth, supplies, startY = 3) {
+function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, startY = 2.4) {
     // Initialize supplies as empty array if not provided
     if (!supplies) {
         supplies = [];
     }
+    doc.setFont("THSarabunNew", "normal");
+    doc.setFontSize(12);
+    doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
+    doc.setFont("THSarabunNew", "bold");
+    doc.setFontSize(14);
+    doc.text("การกำหนดรายละเอียดคุณลักษณะเฉพาะของพัสดุและหรือขอบเขตของงานจ้าง แนบท้ายบันทึกข้อความ", pageWidth / 2, 1, { align: "center" });
+    doc.setFont("THSarabunNew", "normal");
+    preheader(doc, pageWidth, Const1, Const2, Const3, 1.6);
 
     const itemsPerPage = 20; // Maximum items per page
     const rowHeight = 0.7;   // Increased for better readability
@@ -131,7 +139,7 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 3) {
             const amountText = supply.amount ? supply.amount.toString() : '';
             const unitText = supply.unit || 'ชิ้น';
             const combinedText = amountText ? `${amountText} ${unitText}` : '';
-            doc.text(combinedText, colPositions.amountUnit + colWidths.amountUnit / 2, textY, { align: 'center' });
+            doc.text(combinedText, colPositions.amountUnit + colWidths.amountUnit - 0.1, textY, { align: 'right' });
 
             // Numeric values with right alignment
             doc.text(supply.price ? formatNumberWithCommas(supply.price.toFixed(2)) : '',
@@ -155,23 +163,18 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 3) {
     function addNewPageForTable() {
         doc.addPage();
         doc.setFont("THSarabunNew", "normal");
-        doc.setFontSize(14);
-
-        // Page header
+        doc.setFontSize(12);
         doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
-
         doc.setFont("THSarabunNew", "bold");
         doc.setFontSize(14);
-        doc.text('รายการวัสดุ (ต่อ)', pageWidth / 2, 1.5, { align: 'center' });
-
-        itemsOnCurrentPage = 0;
-        return 2.5; // Return Y position for table start on new page
+        doc.text("การกำหนดรายละเอียดคุณลักษณะเฉพาะของพัสดุและหรือขอบเขตของงานจ้าง แนบท้ายบันทึกข้อความ", pageWidth / 2, 1, { align: "center" });
+        doc.setFont("THSarabunNew", "normal");
+        preheader(doc, pageWidth, Const1, Const2, Const3, 1.6);
+        return 3.2; // Return Y position for table start on new page
     }
 
     // Add table title if it's the first table
     if (isFirstTable) {
-        doc.setFont("THSarabunNew", "bold");
-        doc.setFontSize(14);
         currentY += 0.8;
     }
 
@@ -181,9 +184,10 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 3) {
     // Draw each supply item
     supplies.forEach((supply, index) => {
         // Check if we need a new page (leave space for footer content)
-        if (itemsOnCurrentPage >= itemsPerPage || currentY > 25) {
+        if (itemsOnCurrentPage >= itemsPerPage) {
             currentY = addNewPageForTable();
             currentY = drawTableHeader(currentY);
+            itemsOnCurrentPage = 0;
         }
 
         currentY = drawTableRow(supply, index, currentY);
@@ -210,4 +214,39 @@ function generateSupplyTable(doc, pageWidth, supplies, startY = 3) {
 // Function to format number with commas for display
 function formatNumberWithCommas(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+
+
+function preheader(doc, pageWidth, Const1, Const2, Const3, y) {
+    const text1 = "รายการจัดซื้อ/จัดจ้าง/การเช่า ";
+    const text2 = `${Const1}`;
+    const dot = '...........................................................................................................................................................................';
+
+    const text1Width = doc.getTextWidth(text1);
+
+    const x1 = 2;
+    const x1End = x1 + text1Width; // end of text1
+
+    doc.text(text1, x1, y);
+    doc.text(dot, x1End, y + 0.05);
+    doc.text(text2, x1End + 0.2, y);
+    y += 0.6;
+    doc.text('โดยมีแหล่งที่มาของราคากลางจาก (  ) การสืบราคาในท้องตลาด (  ) ราคามาตรฐานหรือเกณฑ์ราคาพื้นฐาน ในวงเงินงบประมาณ', 1, y);
+
+    const text101 = `${Const2}`;
+    const dot2 = '..........................................';
+    const text202 = `${Const3}`
+    const dot3 = `(                                                                                    )`;
+    const dot4 = '...............................................................................................................'
+
+    y += 0.6;
+    doc.text(dot2, 1, y + 0.05);
+    doc.text(text101, 1 + doc.getTextWidth(dot2) / 2 - doc.getTextWidth(text101) / 2, y);
+    doc.text('บาท', 1 + doc.getTextWidth(dot2) + 0.2, y);
+    doc.text(dot3, 1 + doc.getTextWidth(dot2) + 0.2 + doc.getTextWidth('บาท') + 0.2, y);
+    doc.text(dot4, 1 + doc.getTextWidth(dot2) + 0.2 + doc.getTextWidth('บาท') + 0.35, y + 0.05);
+    doc.text(text202, 1 + doc.getTextWidth(dot2) + doc.getTextWidth(text101) + doc.getTextWidth('บาท') + 0.2 + doc.getTextWidth(dot4) / 2 - doc.getTextWidth(text202) / 2, y);
+    doc.text('มีรายละเอียดพัสดุที่ต้องการดังต่อไปนี้', pageWidth - 1.4, y, { align: 'right' });
+
 }
