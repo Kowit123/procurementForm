@@ -195,7 +195,7 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
 
     // Draw initial header
     currentY = drawTableHeader(currentY);
-  
+
     // Calculate total pages needed
     const totalPages = Math.ceil(supplies.length / itemsPerPage);
     let currentPage = 1;
@@ -204,6 +204,11 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
     supplies.forEach((supply, index) => {
         // Check if we need a new page (leave space for footer content)
         if (itemsOnCurrentPage >= itemsPerPage) {
+            // Add "หน้าต่อไป (ถ้ามี)....." text before creating new page
+            doc.setFont("THSarabunNew", "normal");
+            doc.setFontSize(14);
+            doc.text('หน้าต่อไป (ถ้ามี).....', pageWidth - 1.3, 28.5, { align: 'right' });
+
             currentY = addNewPageForTable();
             currentY = drawTableHeader(currentY);
             itemsOnCurrentPage = 0;
@@ -341,10 +346,10 @@ function addLastTableContent(doc, _pageWidth, currentY, _totalItems, vatInfo) {
     doc.setFontSize(14);
     let y = boxStartY + boxHeight + 0.6;
     doc.text('ได้กำหนดการส่งมอบพัสดุ ภายใน 30 วัน/วันเวลาทำการ นับถัดจากวันลงนามในใบสั่งซื้อ/ใบสั่งจ้างหรือหนังสือข้อตกลง', 2, y);
-    y+=0.6;
+    y += 0.6;
     doc.text('โดยเกณฑ์ที่ใช้ในการพิจารณาเกณฑ์ราคาเป็นสำคัญ', 1, y)
-    y+=0.6;
-    condition(doc,  y);
+    y += 0.6;
+    condition(doc, y);
     doc.setFontSize(14);
     y = signature_box8(doc, y);
     y = signature_box9(doc, y);
@@ -387,7 +392,7 @@ function preheader(doc, pageWidth, Const1, Const2, Const3, y) {
 
 }
 
-function condition (doc, y) {
+function condition(doc, y) {
     doc.setFontSize(11);
     doc.setFont('THSarabunNew', 'bold');
     doc.text('*เงื่อนไขและข้อกำหนด*', 1, y);
@@ -440,7 +445,7 @@ function addTableBackgroundImage(doc, pageWidth, startY, totalItems) {
             // Add watermark image with good visibility
             doc.setGState(new doc.GState({ opacity: 0.2 })); // Increased to 40% opacity for better visibility
             doc.addImage(imgData, 'JPEG', centerX, centerY, imageSize, imageSize);
-            doc.setGState(new doc.GState({ opacity: 1.0 })); 
+            doc.setGState(new doc.GState({ opacity: 1.0 }));
         }
     } catch (error) {
         console.log('Could not add background image:', error);
