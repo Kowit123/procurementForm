@@ -157,8 +157,6 @@ function createPDF() {
     currentY = signature_box1(doc, pageWidth, 'ผู้ขอให้จัดหาหรือผู้รับผิดชอบ', formData.responsiblePerson, currentY);
     currentY = rest_of_first_page(doc, pageWidth, formData.responsiblePerson, currentY);
 
-
-
     doc.addPage();
     doc.setFont("THSarabunNew", "normal");
     doc.setFontSize(12);
@@ -175,13 +173,13 @@ function createPDF() {
     y = signature_box6(doc, pageWidth, y);
     y = signature_box7(doc, pageWidth, y);
     y += 1.2;
-    doc.text(`ความเห็น       /3...`, pageWidth - 2, y, { align: 'right' });
-    createArrow(doc, pageWidth, y);
+    doc.text(`ความเห็น       /3...`, pageWidth - 2, 28.5, { align: 'right' });
+    createArrow(doc, pageWidth, 28.5);
 
     doc.addPage();
-    // Store formData globally for supply table access
-    window.currentFormData = formData;
+    page3(doc, pageWidth, formData.totalItems,  formData.requestingFor, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2, 5);
 
+    doc.addPage();
     // Prepare VAT information for supply table
     const vatInfo = {
         vatStatus: formData.vatStatus,

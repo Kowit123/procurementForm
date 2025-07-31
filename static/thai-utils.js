@@ -312,7 +312,7 @@ function formatShortBuddhistDate(date) {
  */
 function initializeThaiDatePickers() {
     // flatpickr date (แปลง พ.ศ.)
-    const ids = ["thai-datepicker1", "thai-datepicker2", "thai-datepicker3", "thai-datepicker4", "thai-datepicker5", "thai-datepicker6", "thai-datepicker7", "thai-datepicker8", "thai-datepicker9", "thai-datepicker10"];
+    const ids = ["thai-datepicker1"];
     const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
     
     ids.forEach(id => {
