@@ -104,7 +104,6 @@
                         </table>
                         <button type="button" id="addSupplyRow" class="add-button">+ เพิ่มรายการ</button>
                         <button type="button" id="deleteSupplyRow" class="delete-button" title="ลบรายการ">- ลบรายการ</button>
-                        <button onclick="test()">RunTest</button>
                         <div class="vat-section">
                             <div class="vat-options">
                                 <label>สถานะ VAT:</label>
@@ -160,33 +159,6 @@
 
         </form>
     </div>
-
-    <script>
-        function test() {
-            const tabletest = document.getElementById('addSupplyRow');
-        
-            const rowCount = 42;
-            for (let i = 0; i < rowCount; i++) {
-                tabletest.click();
-            }
-        
-            setTimeout(() => {
-                const inputs = document.querySelectorAll('.supply-list-table input');
-                const inputsPerRow = 7; // 1 แถวมี 7 ช่อง
-        
-                for (let row = 0; row < rowCount + 1; row++) {
-                    // กรอกแค่ช่อง 0–4 (ช่อง 6 และ 7 ข้ามไป)
-                    for (let i = 0; i < 5; i++) {
-                        const index = row * inputsPerRow + i;
-                        inputs[index].value = row + 1; 
-                    }
-                }
-            }, 500);
-        }
-        </script>
-        
-        
-        
         
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="static/thai-utils.js"></script>
