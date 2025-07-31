@@ -343,7 +343,12 @@ function addLastTableContent(doc, _pageWidth, currentY, _totalItems, vatInfo) {
     doc.text('ได้กำหนดการส่งมอบพัสดุ ภายใน 30 วัน/วันเวลาทำการ นับถัดจากวันลงนามในใบสั่งซื้อ/ใบสั่งจ้างหรือหนังสือข้อตกลง', 2, y);
     y+=0.6;
     doc.text('โดยเกณฑ์ที่ใช้ในการพิจารณาเกณฑ์ราคาเป็นสำคัญ', 1, y)
-
+    y+=0.6;
+    condition(doc,  y);
+    doc.setFontSize(14);
+    y = signature_box8(doc, y);
+    y = signature_box9(doc, y);
+    y = signature_box10(doc, y);
 
     return boxStartY + boxHeight;
 }
@@ -379,6 +384,32 @@ function preheader(doc, pageWidth, Const1, Const2, Const3, y) {
     doc.text(dot4, 1 + doc.getTextWidth(dot2) + 0.2 + doc.getTextWidth('บาท') + 0.35, y + 0.05);
     doc.text(text202, 1 + doc.getTextWidth(dot2) + doc.getTextWidth(text101) + doc.getTextWidth('บาท') + 0.2 + doc.getTextWidth(dot4) / 2 - doc.getTextWidth(text202) / 2, y);
     doc.text('มีรายละเอียดพัสดุที่ต้องการดังต่อไปนี้', pageWidth - 1.4, y, { align: 'right' });
+
+}
+
+function condition (doc, y) {
+    doc.setFontSize(11);
+    doc.setFont('THSarabunNew', 'bold');
+    doc.text('*เงื่อนไขและข้อกำหนด*', 1, y);
+    doc.setFont('THSarabunNew', 'normal');
+    y += 0.5;
+    doc.text('1) งวดงานและการจ่ายเงิน  โดยแบ่งเป็น 1 งวดงาน และ 1 งวดเงิน ซึ่ง', 1, y);
+    y += 0.5;
+    doc.text('คณะวิศวกรรมศาสตร์ มหาวิทยาลัยมหาสารคาม จะชำระเงินตามใบสั่งซื้อสั่งจ้าง', 1, y);
+    y += 0.5;
+    doc.text('หรือข้อตกลงไว้เป็นหนังสือ เมื่อผู้ขายหรือผู้รับจ้างได้ส่งมอบพัสดุครบถ้วนตามใบสั่ง', 1, y);
+    y += 0.5;
+    doc.text('ซื้อสั่งจ้างหรือข้อตกลงไว้เป็นหนังสือ ผู้ตรวจรับพัสดุหรือคณะกรรมการตรวจรับ', 1, y);
+    y += 0.5;
+    doc.text('พัสดุได้ทำการตรวจรับพัสดุ ถูกต้อง ครบถ้วนแล้ว', 1, y);
+    y += 0.5;
+    doc.text('2) อัตราค่าปรับ การกำหนดอัตราค่าปรับในสัญญาซื้อหรือจ้าง/ใบสั่งซื้อสั่งจ้าง หรือ', 1, y);
+    y += 0.5;
+    doc.text('ข้อตกลงไว้เป็นหนังสือ ค่าปรับรายวันเป็นจำนวนเงินตายตัวให้คิดในอัตราร้อยละ', 1, y);
+    y += 0.5;
+    doc.text('(0.20) ของราคาพัสดุที่ยังไม่ได้รับมอบ หรือ (0.10) ของราคางานจ้างแต่ต้องไม่ต่ำ', 1, y);
+    y += 0.5;
+    doc.text('กว่าวันละ 100 บาท', 1, y);
 
 }
 
