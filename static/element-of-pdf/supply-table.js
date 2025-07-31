@@ -195,7 +195,7 @@ function generateSupplyTable(doc, pageWidth, supplies, Const1, Const2, Const3, s
 
     // Draw initial header
     currentY = drawTableHeader(currentY);
-
+  
     // Calculate total pages needed
     const totalPages = Math.ceil(supplies.length / itemsPerPage);
     let currentPage = 1;
