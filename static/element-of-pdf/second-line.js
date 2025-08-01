@@ -1,7 +1,8 @@
-function second_line(doc, pageWidth, Const1, Const2, y = 7) {
+function second_line(doc, pageWidth, Const, Const1, Const2, y = 7) {
     // tetx 
     // const text1 = "ขอซื้อวัสดุการศึกษา (ตามกำหนดรายละเอียดแนบท้าย) จำนวน";
     const text1 = "................................. (ตามกำหนดรายละเอียดแนบท้าย) จำนวน";
+    const text101 = `${Const}`
     const text2 = `${Const1}`
     const text3 = " รายการ เป็นจำนวนเงิน";
     const text4 = `${Const2}`;
@@ -41,9 +42,10 @@ function second_line(doc, pageWidth, Const1, Const2, y = 7) {
     const x4 = xDot2 + (dot2Width / 2) - (text4Width / 2);
 
     // วาดข้อความ
-    doc.text(text1, x1, y);                              // Block 1 (ซ้าย)
-    doc.text(dot1, xDot1, y + 0.05);                            // จุดไข่ปลา
-    doc.text(text2, x2, y);                              // Block 2 (ตรงกลางจุดไข่ปลา)
+    doc.text(text1, x1, y);    
+    doc.text(text101, 2, y - 0.04) ;                         
+    doc.text(dot1, xDot1, y + 0.05);                           
+    doc.text(text2, x2, y);                             
     doc.text(text3, x3Start, y);
     doc.text(text4, x4, y);
     doc.text(dot2, xDot2, y + 0.05);

@@ -177,7 +177,7 @@ function createPDF() {
     createArrow(doc, pageWidth, 28.5);
 
     doc.addPage();
-    page3(doc, pageWidth, formData.totalItems,  formData.requestingFor, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2, 5);
+    page3(doc, pageWidth, formData.objective, formData.totalItems,  formData.requestingFor, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2, 5);
 
     doc.addPage();
     // Prepare VAT information for supply table
@@ -208,6 +208,7 @@ function getFormData() {
     formData.responsiblePerson = document.getElementById('responsible_person').value;
     formData.responsibleCommitteeMember1 = document.getElementById('responsible_committee_member1').value;
     formData.responsibleCommitteeMember2 = document.getElementById('responsible_committee_member2').value;
+    formData.objective = document.getElementById("objective").value;
     formData.requestingFor = document.getElementById('requesting_for').value;
 
     // Get inspector information

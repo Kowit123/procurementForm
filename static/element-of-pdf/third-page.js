@@ -1,4 +1,4 @@
-function page3(doc, pageWidth, Const1, Const2, Const3, Const4, Const5, y) {
+function page3(doc, pageWidth, Const, Const1, Const2, Const3, Const4, Const5, y) {
     const img = document.getElementById("img");
     if (img) {
         // Make sure the image is loaded
@@ -45,10 +45,12 @@ function page3(doc, pageWidth, Const1, Const2, Const3, Const4, Const5, y) {
     doc.text('ด้วยคณะวิศวกรรมศาสตร์ มหาวิทยาลัยมหาสารคาม มีความประสงค์จะดำเนินการจัดหาและขออนุมัติจัดซื้อ/ขอจ้าง/การเช่า', 3.5, y);
     y += 0.6;
     const text1 = "................................. (ตามกำหนดรายละเอียดแนบท้าย) จำนวน";
+    const text101 = `${Const}`
     const text2 = `${Const1}`;
     const text3 = "รายการ";
     const dot1 = "......................";
     doc.text(text1, 2, y);
+    doc.text(Const, 2, y - 0.04);
     doc.text(text2, doc.getTextWidth(text1) + 2 + doc.getTextWidth(dot1)/2 - doc.getTextWidth(text2)/2, y);
     doc.text(dot1, doc.getTextWidth(text1) + 2, y + 0.05);
     doc.text(text3, doc.getTextWidth(text1) + doc.getTextWidth(dot1)+ 2, y);
