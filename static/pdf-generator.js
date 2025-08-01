@@ -189,6 +189,8 @@ function createPDF() {
 
     currentY = generateSupplyTable(doc, pageWidth, formData.supplies, formData.requestingFor, formData.grandTotal, formData.grandTotalText, currentY, vatInfo);
 
+    doc.addPage();
+    page4(doc, pageWidth,y);
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");

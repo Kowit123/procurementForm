@@ -379,7 +379,7 @@ function initializeThaiDatePickers() {
     }
 
     // Initialize with current date for the first picker
-    const firstPicker = document.getElementById('thai-datepicker1');
+    const firstPicker = document.getElementById('thai-datepicker1, thai-datepicker2');
     if (firstPicker) {
         const currentDate = new Date();
         const day = currentDate.getDate().toString().padStart(2, "0");
