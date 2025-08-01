@@ -10,7 +10,7 @@ function page4(doc, pageWidth) {
 
     let marginTop = 3.5;
     let marginLeft = 2;
-    let marginRight = 1;
+    let marginRight = 2;
     let marginBottom = 5;
     
     let boxX = marginLeft;
