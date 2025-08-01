@@ -148,7 +148,7 @@ function createPDF() {
     let currentY = 6.0; // Starting y position after header
 
     currentY = first_line(doc, pageWidth, currentY);
-    currentY = second_line(doc, pageWidth, formData.totalItems, formData.grandTotal, currentY);
+    currentY = second_line(doc, pageWidth, formData.objective, formData.totalItems, formData.grandTotal, currentY);
     currentY = third_line(doc, pageWidth, formData.grandTotalText, formData.requestingFor, currentY);
     currentY = forthTosixth_line(doc, currentY);
     currentY = seventhTonineth_line(doc, pageWidth, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2, currentY);
