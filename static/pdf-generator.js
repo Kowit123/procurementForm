@@ -177,7 +177,7 @@ function createPDF() {
     createArrow(doc, pageWidth, 28.5);
 
     doc.addPage();
-    page3(doc, pageWidth, formData.objective, formData.totalItems,  formData.requestingFor, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2, 5);
+    page3(doc, pageWidth, formData.objective, formData.totalItems, formData.requestingFor, formData.responsiblePerson, formData.responsibleCommitteeMember1, formData.responsibleCommitteeMember2, 5);
 
     doc.addPage();
     // Prepare VAT information for supply table
@@ -190,7 +190,7 @@ function createPDF() {
     currentY = generateSupplyTable(doc, pageWidth, formData.supplies, formData.requestingFor, formData.grandTotal, formData.grandTotalText, currentY, vatInfo);
 
     doc.addPage();
-    page4(doc, pageWidth,y);
+    page4(doc, pageWidth, formData);
 
     // use blob to preview pdf before download
     const pdfBlob = doc.output("blob");
@@ -203,8 +203,62 @@ function getFormData() {
     const formData = {};
 
     // Get date information
-    const dateInput = document.getElementById('Date');
-    formData.documentDate = dateInput && dateInput.value.trim() ? dateInput.value : convertToThaiDate(new Date());
+    const dateInput = document.getElementById('thai-datepicker1');
+    if (dateInput && dateInput.value.trim()) {
+        // Convert d/m/y format to Thai text format
+        const dateParts = dateInput.value.split('/');
+        if (dateParts.length === 3) {
+            const day = parseInt(dateParts[0]);
+            const month = parseInt(dateParts[1]) - 1; // JavaScript months are 0-indexed
+            const year = parseInt(dateParts[2]) - 543; // Convert from Buddhist to Gregorian
+            const date = new Date(year, month, day);
+            formData.documentDate = gregorianToBuddhistEra(date).thaiDate;
+        } else {
+            formData.documentDate = dateInput.value;
+        }
+    } else {
+        formData.documentDate = gregorianToBuddhistEra(new Date()).thaiDate;
+    }
+
+    // Get reference date from thai-datepicker2
+    const datePicker2 = document.getElementById('thai-datepicker2');
+    if (datePicker2 && datePicker2.value) {
+        // Convert d/m/y format to Thai text format
+        const dateParts = datePicker2.value.split('/');
+        if (dateParts.length === 3) {
+            const day = parseInt(dateParts[0]);
+            const month = parseInt(dateParts[1]) - 1; // JavaScript months are 0-indexed
+            const year = parseInt(dateParts[2]) - 543; // Convert from Buddhist to Gregorian
+            const date = new Date(year, month, day);
+            formData.referenceDate = gregorianToBuddhistEra(date).thaiDate;
+        } else {
+            formData.referenceDate = datePicker2.value;
+        }
+    } else {
+        formData.referenceDate = gregorianToBuddhistEra(new Date()).thaiDate;
+    }
+
+    // Get reference detail
+    const referenceDetail = document.getElementById('4-detail');
+    formData.referenceDetail = referenceDetail ? referenceDetail.value : '';
+
+    // Function to convert Arabic numerals to Thai numerals
+    function toThaiNumeral(num) {
+        const thaiNumerals = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
+        return num.toString().replace(/[0-9]/g, (digit) => thaiNumerals[parseInt(digit)]);
+    }
+
+    // Get price sources
+    formData.priceSources = [];
+    for (let i = 1; i <= 4; i++) {
+        const sourceInput = document.getElementById(`source-5-${i}`);
+        if (sourceInput && sourceInput.value.trim()) {
+            formData.priceSources.push({
+                number: `๕.${toThaiNumeral(i)}`,
+                text: sourceInput.value.trim()
+            });
+        }
+    }
 
     // Get responsible person information
     formData.responsiblePerson = document.getElementById('responsible_person').value;

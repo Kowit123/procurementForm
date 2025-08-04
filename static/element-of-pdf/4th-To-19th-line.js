@@ -47,6 +47,7 @@ function seventhTonineth_line(doc, pageWidth, Const1, Const2, Const3, y = 10) {
     doc.text(text2, x2, y, { align: 'right' }); 
     
     const text21 = "1.2)";
+    const text31 = "1.3)";
     const text2101 = `${Const2}`;
     const text3101 = `${Const3}`;
     const text22 = "กรรมการ (ถ้ามี)";
@@ -62,7 +63,7 @@ function seventhTonineth_line(doc, pageWidth, Const1, Const2, Const3, y = 10) {
     doc.text(text22, x22, y);
     
     y += 0.6;
-    doc.text(text21, x21, y); 
+    doc.text(text31, x21, y); 
     doc.text(text3101, x2101, y);                             
     doc.text(dots, xDots, y + 0.05);                                            
     doc.text(text22, x22, y);
@@ -128,6 +129,7 @@ function fiveteenthTonineteenth_line(doc, pageWidth, Const1, Const2, Const3, y =
     doc.text(text2, x2, y); 
     
     const text21 = "1.2)";
+    const text31 = "1.3)";
     const text2101 = `${Const2}`;
     const text3101 = `${Const3}`;
     const text22 = "กรรมการ (ถ้ามี)";
@@ -143,7 +145,7 @@ function fiveteenthTonineteenth_line(doc, pageWidth, Const1, Const2, Const3, y =
     doc.text(text22, x22, y);
     
     y += 0.6;
-    doc.text(text21, x21, y); 
+    doc.text(text31, x21, y); 
     doc.text(text3101, x2101, y);                             
     doc.text(dots, xDots, y + 0.05);                                            
     doc.text(text22, x22, y);

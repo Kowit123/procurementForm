@@ -312,7 +312,7 @@ function formatShortBuddhistDate(date) {
  */
 function initializeThaiDatePickers() {
     // flatpickr date (แปลง พ.ศ.)
-    const ids = ["thai-datepicker1"];
+    const ids = ["thai-datepicker1", "thai-datepicker2"];
     const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
     
     ids.forEach(id => {
@@ -379,13 +379,21 @@ function initializeThaiDatePickers() {
     }
 
     // Initialize with current date for the first picker
-    const firstPicker = document.getElementById('thai-datepicker1, thai-datepicker2');
+    const firstPicker = document.getElementById('thai-datepicker1');
     if (firstPicker) {
         const currentDate = new Date();
         const day = currentDate.getDate().toString().padStart(2, "0");
         const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
         const year = (currentDate.getFullYear() + 543).toString();
         firstPicker.value = `${day}/${month}/${year}`;
+    }
+    const secondPicker = document.getElementById('thai-datepicker2');
+    if (secondPicker) {
+        const currentDate = new Date();
+        const day = currentDate.getDate().toString().padStart(2, "0");
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+        const year = (currentDate.getFullYear() + 543).toString();
+        secondPicker.value = `${day}/${month}/${year}`;
     }
 }
 

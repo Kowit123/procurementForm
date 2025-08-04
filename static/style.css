@@ -98,9 +98,9 @@ h3 {
 
 .date-input {
     width: 220px;
-    min-height: 80px;
+    min-height: 50px;
     margin: 0;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     background-color: #ffffff;
     border: 1px solid #adadad;
@@ -111,7 +111,7 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .date-input label {
@@ -866,7 +866,7 @@ input.error:focus {
     .flatpickr-calendar {
         font-size: 0.9em;
     }
-    
+
     .flatpickr-calendar .flatpickr-day {
         height: 35px;
         line-height: 35px;
@@ -878,9 +878,147 @@ input.error:focus {
         font-size: 0.85em;
         max-width: 280px;
     }
-    
+
     .flatpickr-calendar .flatpickr-day {
         height: 32px;
         line-height: 32px;
+    }
+}
+
+/* 
+Enhanced form section styles for บก.๐๖ */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.section-label {
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    display: block;
+}
+
+.date-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.detail-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.inline-label {
+    font-weight: normal;
+    margin-bottom: 0;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+.date-input {
+    width: 150px;
+    text-align: center;
+}
+
+.detail-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.section-divider {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+}
+
+.price-sources {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.source-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.source-label {
+    font-weight: bold;
+    color: #0056b3;
+    min-width: 40px;
+    margin-bottom: 0;
+}
+
+.source-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.source-input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+    outline: none;
+}
+
+.source-input:hover {
+    border-color: #0056b3;
+}
+
+/* Mobile responsive for enhanced form */
+@media (max-width: 768px) {
+
+    .date-input-group,
+    .detail-input-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .date-input {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .detail-input {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .source-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .source-label {
+        min-width: auto;
+    }
+
+    .source-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .price-sources {
+        gap: 12px;
+    }
+
+    .source-item {
+        gap: 6px;
+    }
+
+    .section-label {
+        font-size: 1em;
     }
 }

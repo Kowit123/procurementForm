@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PDF Generation</title>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .error { border: 2px solid red; }
+    </style>
+</head>
+<body>
+    <h1>Test PDF Generation</h1>
+    
+    <form id="procurementForm">
+        <div class="test-section">
+            <h3>ข้อมูลพื้นฐาน</h3>
+            <label>ผู้ขอให้จัดหา:</label>
+            <input type="text" id="responsible_person" name="responsible_person" value="นายทดสอบ ระบบ" required><br><br>
+            
+            <label>จะดำเนินการขอ:</label>
+            <input type="text" id="objective" name="objective" value="จัดซื้อ" required><br><br>
+            
+            <label>เพื่อใช้:</label>
+            <input type="text" id="requesting_for" name="requesting_for" value="งานทดสอบระบบ" required><br><br>
+            
+            <label>ผู้ตรวจรับพัสดุ:</label>
+            <input type="text" id="inspector" name="inspector" value="นายตรวจสอบ ระบบ" required><br><br>
+        </div>
+        
+        <div class="test-section">
+            <h3>วันที่</h3>
+            <label>ณ วันที่:</label>
+            <input id="thai-datepicker1" type="text" placeholder="ว/ด/ปี" autocomplete="off"><br><br>
+            
+            <label>ราคาอ้างอิง ณ วันที่:</label>
+            <input id="thai-datepicker2" type="text" placeholder="ว/ด/ปี" autocomplete="off"><br><br>
+            
+            <label>รายละเอียด:</label>
+            <input type="text" id="4-dtail" name="4-dtail" value="ราคาตลาดท้องถิ่น">
+        </div>
+        
+        <div class="test-section">
+            <h3>รายการพัสดุ</h3>
+            <table>
+                <tr class="supply-item">
+                    <td><input type="text" name="supply_name[]" value="ปากกา" required></td>
+                    <td><input type="text" name="supply_amount[]" value="10" required></td>
+                    <td><input type="text" name="supply_unit[]" value="ด้าม" required></td>
+                    <td><input type="text" name="supply_price_unit[]" value="15.00" required></td>
+                    <td><input type="text" name="sum_supply_price[]" value="150.00" readonly></td>
+                    <td><input type="radio" name="product_origin_1" value="domestic" checked></td>
+                </tr>
+            </table>
+            
+            <div>
+                <input type="radio" name="vat_status" value="no_vat" checked> ไม่มี VAT
+            </div>
+            
+            <div>
+                <span>จำนวนรายการ: <span id="totalItems">1</span> รายการ</span><br>
+                <span>VAT 7%: <span id="vatAmount">0.00</span> บาท</span><br>
+                <span>ราคารวมทั้งสิ้น: <span id="grandTotal">150.00</span> บาท</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <button type="button" id="previewBtn">Generate PDF</button>
+            <button type="button" onclick="testDatePickers()">Test Date Pickers</button>
+        </div>
+    </form>
+    
+    <div id="debug-info"></div>
+
+    <!-- Hidden images for PDF -->
+    <img id="img" src="static/img/krut.jpg" style="display: none;" alt="Logo" />
+    <img id="msuimg" src="static/img/msuLogo.jpg" style="display: none;" alt="msuLogo" />
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="static/jspdf.min.js"></script>
+    <script src="static/jspdf.plugin.autotable.min.js"></script>
+    <script src="static/thai-utils.js"></script>
+    <script src="static/element-of-pdf/signature-box.js"></script>
+    <script src="static/element-of-pdf/first-line.js"></script>
+    <script src="static/element-of-pdf/second-line.js"></script>
+    <script src="static/element-of-pdf/third-line.js"></script>
+    <script src="static/element-of-pdf/4th-To-19th-line.js"></script>
+    <script src="static/element-of-pdf/rest-of-first-page.js"></script>
+    <script src="static/element-of-pdf/page2.js"></script>
+    <script src="static/element-of-pdf/third-page.js"></script>
+    <script src="static/element-of-pdf/supply-table.js"></script>
+    <script src="static/element-of-pdf/page4.js"></script>
+    <script src="static/pdf-generator.js"></script>
+    <script src="static/font/THSarabunNew-bold.js"></script>
+    <script src="static/font/THSarabunNew-normal.js"></script>
+    
+    <script>
+        // Initialize Thai date pickers
+        setupThaiDatePickers();
+        
+        function testDatePickers() {
+            const picker1 = document.getElementById('thai-datepicker1');
+            const picker2 = document.getElementById('thai-datepicker2');
+            
+            console.log('Date Picker 1 value:', picker1.value);
+            console.log('Date Picker 2 value:', picker2.value);
+            
+            document.getElementById('debug-info').innerHTML = `
+                <h3>Debug Info:</h3>
+                <p>Date Picker 1: ${picker1.value}</p>
+                <p>Date Picker 2: ${picker2.value}</p>
+                <p>Current Date: ${convertToThaiDate(new Date())}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

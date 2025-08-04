@@ -105,7 +105,8 @@
                             </tbody>
                         </table>
                         <button type="button" id="addSupplyRow" class="add-button">+ เพิ่มรายการ</button>
-                        <button type="button" id="deleteSupplyRow" class="delete-button" title="ลบรายการ">- ลบรายการ</button>
+                        <button type="button" id="deleteSupplyRow" class="delete-button" title="ลบรายการ">-
+                            ลบรายการ</button>
                         <div class="vat-section">
                             <div class="vat-options">
                                 <label>สถานะ VAT:</label>
@@ -147,9 +148,54 @@
                         <option value="pdf">PDF</option>
                     </select>
                 </div>
-
                 <button type="submit">Generate Document</button>
             </div> -->
+            <!--section 5-->
+            <div class="form-section section-box">
+                <h3>แบบ บก.๐๖</h3>
+                <div class="bg06">
+                    <div class="form-group">
+                        <label class="section-label">๔. วันที่กำหนดราคากลาง</label>
+                        <div class="date-input-group">
+                            <label for="thai-datepicker2" class="inline-label">(ราคาอ้างอิง) ณ วันที่</label>
+                            <input id="thai-datepicker2" type="text" placeholder="ว/ด/ปี" title="เลือกวันที่"
+                                autocomplete="off" class="date-input">
+                        </div>
+                        <div class="detail-input-group">
+                            <label for="4-detail" class="inline-label">รายละเอียด</label>
+                            <input type="text" name="4-detail" id="4-detail" class="detail-input">
+                        </div>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <div class="form-group">
+                        <label class="section-label">๕. แหล่งที่มาของราคากลาง</label>
+                        <div class="price-sources">
+                            <div class="source-item">
+                                <label for="source-5-1" class="source-label">๕.๑</label>
+                                <input type="text" id="source-5-1" name="source-5-1" class="source-input"
+                                    placeholder="ระบุแหล่งที่มาของราคา">
+                            </div>
+                            <div class="source-item">
+                                <label for="source-5-2" class="source-label">๕.๒</label>
+                                <input type="text" id="source-5-2" name="source-5-2" class="source-input"
+                                    placeholder="ระบุแหล่งที่มาของราคา">
+                            </div>
+                            <div class="source-item">
+                                <label for="source-5-3" class="source-label">๕.๓</label>
+                                <input type="text" id="source-5-3" name="source-5-3" class="source-input"
+                                    placeholder="ระบุแหล่งที่มาของราคา">
+                            </div>
+                            <div class="source-item">
+                                <label for="source-5-4" class="source-label">๕.๔</label>
+                                <input type="text" id="source-5-4" name="source-5-4" class="source-input"
+                                    placeholder="ระบุแหล่งที่มาของราคา">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-footer">
                 <button type="submit" class="manual-button">คู่มือการใช้งาน</button>
@@ -161,7 +207,7 @@
 
         </form>
     </div>
-        
+
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="static/thai-utils.js"></script>
     <script>
