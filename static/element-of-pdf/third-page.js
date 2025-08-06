@@ -39,6 +39,8 @@ function page3(doc, pageWidth, Const, Const1, Const2, Const3, Const4, Const5, y)
     y += 0.6;
     doc.text('เรื่องแต่งตั้งผู้รับผิดชอบหรือคณะกรรมการกำหนดร่างรายละเอียดคุณลักษณะเฉพาะของพัสดุหรือร่างขอบเขตของงานจ้าง', pageWidth /2, y, { align: 'center' });
     y += 0.6;
+    doc.text(`สำหรับ${document.querySelector('input[name="objective"]:checked')?.value || ''} ${document.getElementById("objective").value} ปีงบประมาณ 25...... จำนวน ${document.getElementById('totalItems').textContent} รายการ`, pageWidth /2, y, { align: 'center' });
+    y += 0.6;
     doc.text('ของคณะวิศวกรรมศาสตร์ มหาวิทยาลัยมหาสารคาม', pageWidth /2, y, { align: 'center' });
     y += 1;
     doc.setFont("THSarabunNew", "normal");

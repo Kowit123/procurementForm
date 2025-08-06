@@ -113,6 +113,7 @@ function page4(doc, pageWidth, formData) {
     doc.text(`ณ วันที่ ${formData.referenceDate}`, 2.6 + doc.getTextWidth(`๔. วันที่กำหนดราคากลาง (ราคาอ้างอิง)`), y);
     y += 0.7;
 
+
     let marginTop = 3.5;
     let marginLeft = 2;
     let marginRight = 2;
@@ -125,11 +126,16 @@ function page4(doc, pageWidth, formData) {
     doc.setLineWidth(0.03);
     doc.rect(boxX, boxY, boxWidth, boxHeight);
 
+    doc.setFontSize(14);
+    doc.text('- แหล่งที่มาของราคา : สืบราคาจากท้องตลาด และตามหนังสือเวียนกรมบัญชีกลาง ที่ กค 0433.2/54936 ลว 20 ธ.ค. 2562', 2.6, y)
+    doc.setFontSize(16);
     let dotY = y;
     for (let i = 0; i < 4; i++) {
         doc.text('.'.repeat(Math.floor(boxWidth * 10.75)), boxX + 0.1, dotY + 0.05);
         dotY += 0.75; // Line spacing
     }
+
+    
 
     // Get the text content safely
     const detailText = document.getElementById("4-detail") ? document.getElementById("4-detail").value : '';
