@@ -30,18 +30,17 @@ function signature_box2(doc, pageWidth, const1, const2, y = 26.2) {
     const text3 = ` ........................................................................ `;
 
     const start1 = pageWidth - 2;
-    const x1     = pageWidth - doc.getTextWidth(text1) - 2;
+    const x1     =10.5; //pageWidth - doc.getTextWidth(text1) - 2;
     const x2     = x1;
     const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
 
     doc.text(text0, x1 - 0.75, y);
-    doc.text(text1, start1, y, {align: 'right'});
+    doc.text(text1, 10.5, y);
     y += 0.6;
     doc.text(text2, x2, y);
     doc.text(text3, x2, y + 0.05);
     y += 0.6;
     doc.text('........../........../..........',x4, y);
-    y += 0.6;
     doc.text(`ความเห็น       /2...`, pageWidth - 2, y, {align: 'right'} );
     createArrow(doc, pageWidth, y);
     
@@ -65,8 +64,8 @@ function signature_box3(doc, pageWidth, y) {
     const text2 = `(                                                       ) `;
     const text3 = ` .........................................................................`;
 
-    const start1 = 5;
-    const x1     = 5;
+    const start1 = 8;
+    const x1     = 8;
     const x2     = x1;
     const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
 
@@ -91,8 +90,8 @@ function signature_box4(doc, pageWidth, y) {
     const text2 = `(                                                       ) `;
     const text3 = ` .........................................................................`;
 
-    const start1 = 5;
-    const x1     = 5;
+    const start1 = 8;
+    const x1     = 8;
     const x2     = x1;
     const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
 
@@ -123,8 +122,8 @@ function signature_box5(doc, pageWidth, y) {
     const text2 = `(                                                       ) `;
     const text3 = ` .........................................................................`;
 
-    const start1 = 5;
-    const x1     = 5;
+    const start1 = 8;
+    const x1     = 8;
     const x2     = x1;
     const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
 
@@ -155,8 +154,8 @@ function signature_box6(doc, pageWidth, y) {
     const text2 = `(                                                       ) `;
     const text3 = ` .........................................................................`;
 
-    const start1 = 5;
-    const x1     = 5;
+    const start1 = 8;
+    const x1     = 8;
     const x2     = x1;
     const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
 
@@ -185,8 +184,8 @@ function signature_box7(doc, pageWidth, y) {
     const text2 = `(                                                       ) `;
     const text3 = ` .........................................................................`;
 
-    const start1 = 5;
-    const x1     = 5;
+    const start1 = 8;
+    const x1     = 8;
     const x2     = x1;
     const x4     = (x1 + doc.getTextWidth('.......................................................................')/2) - (doc.getTextWidth('........../........../..........')/2);
 

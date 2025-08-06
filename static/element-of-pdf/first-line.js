@@ -2,8 +2,8 @@ function first_line(doc, pageWidth, y = 6.4) {
     // tetx 
     const text1 = "ด้วยข้าพเจ้า";
     const text2 = `${document.getElementById("responsible_person").value}`
-    const text3 = "จะดำเนินการขอให้จัดหาและขออนุมัติจัดซื้อ/ขอจ้าง/การเช่า";
-    const dots = "...............................................................................";
+    const text3 = `จะดำเนินการขอให้จัดหาและขออนุมัติ ${document.querySelector('input[name="objective"]:checked')?.value || ''}`;
+    const dots = ".....................................................................................................";
 
     // get text width
     const text1Width = doc.getTextWidth(text1);

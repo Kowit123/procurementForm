@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
         newRow.className = 'supply-item';
 
         newRow.innerHTML = `
-            <td><input type="text" name="supply_name[]" required></td>
-            <td><input type="text" name="supply_amount[]" min="1" required></td>
-            <td><input type="text" name="supply_unit[]" required></td>
-            <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" required></td>
+            <td><input type="text" name="supply_name[]" ></td>
+            <td><input type="text" name="supply_amount[]" min="1" ></td>
+            <td><input type="text" name="supply_unit[]" ></td>
+            <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" ></td>
             <td><input type="text" name="sum_supply_price[]" readonly></td>
             <td class="radio-cell"><input type="radio" name="product_origin_${rowCounter}" value="domestic" checked></td>
             <td class="radio-cell"><input type="radio" name="product_origin_${rowCounter}" value="foreign"></td>

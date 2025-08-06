@@ -47,6 +47,20 @@
                         <label for="responsible_committee_member2">กรรมการ (ถ้ามี)</label>
                         <input type="text" id="responsible_committee_member2" name="responsible_committee_member2">
                         <label for="objective">จะดำเนินการขอ <span class="required">*</span></label>
+                        <div class="objective-list">
+                            <div class="radio-option">
+                                <input type="radio" id="radio1" name="objective" value="จัดซื้อ" required>
+                                <label for="radio1">จัดซื้อ</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="radio2" name="objective" value="ขอจ้าง">
+                                <label for="radio2">ขอจ้าง</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="radio3" name="objective" value="การเช่า">
+                                <label for="radio3">การเช่า</label>
+                            </div>
+                        </div>
                         <input type="text" id="objective" name="objective">
                         <div class="requesting-for">
                             <label for="requesting_for">เพื่อใช้ <span class="required">*</span></label>
@@ -90,10 +104,10 @@
                             </thead>
                             <tbody>
                                 <tr class="supply-item">
-                                    <td><input type="text" name="supply_name[]" required></td>
-                                    <td><input type="text" name="supply_amount[]" min="1" required></td>
-                                    <td><input type="text" name="supply_unit[]" required></td>
-                                    <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" required>
+                                    <td><input type="text" name="supply_name[]" ></td>
+                                    <td><input type="text" name="supply_amount[]" min="1" ></td>
+                                    <td><input type="text" name="supply_unit[]"></td>
+                                    <td><input type="text" name="supply_price_unit[]" min="0" step="0.01" >
                                     </td>
                                     <td><input type="text" name="sum_supply_price[]" readonly></td>
                                     <td class="radio-cell"><input type="radio" name="product_origin_1" value="domestic"

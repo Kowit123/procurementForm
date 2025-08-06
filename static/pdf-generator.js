@@ -122,7 +122,7 @@ function createPDF() {
     }
     doc.setFont("THSarabunNew", "normal");
     doc.setFontSize(12);
-    doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
+    doc.text('EN-PS-01', pageWidth - 2, 1, { align: 'right' });
     doc.setFont("THSarabunNew", "bold");
     doc.setFontSize(16);
     doc.text('บันทึกข้อความ', pageWidth / 2, 2, { align: 'center' });
@@ -145,7 +145,7 @@ function createPDF() {
 
     //body
     //I will separate them line by line. Each line will be stored in a separate script.
-    let currentY = 6.0; // Starting y position after header
+    let currentY = 6.6; // Starting y position after header
 
     currentY = first_line(doc, pageWidth, currentY);
     currentY = second_line(doc, pageWidth, formData.objective, formData.totalItems, formData.grandTotal, currentY);
@@ -160,8 +160,8 @@ function createPDF() {
     doc.addPage();
     doc.setFont("THSarabunNew", "normal");
     doc.setFontSize(12);
-    doc.text('-2-', pageWidth / 2, 0.5, { align: 'center' });
-    doc.text('EN-PS-01', pageWidth - 2, 0.5, { align: 'right' });
+    doc.text('-2-', pageWidth / 2, 1, { align: 'center' });
+    doc.text('EN-PS-01', pageWidth - 2, 1, { align: 'right' });
     doc.setFontSize(14);
     y = 2;
     doc.text('ความเห็นของงานการเงินและบัญชี', 3.5, y);
