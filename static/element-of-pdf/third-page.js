@@ -39,12 +39,12 @@ function page3(doc, pageWidth, Const, Const1, Const2, Const3, Const4, Const5, y)
     y += 0.6;
     doc.text('เรื่องแต่งตั้งผู้รับผิดชอบหรือคณะกรรมการกำหนดร่างรายละเอียดคุณลักษณะเฉพาะของพัสดุหรือร่างขอบเขตของงานจ้าง', pageWidth /2, y, { align: 'center' });
     y += 0.6;
-    doc.text(`สำหรับ${document.querySelector('input[name="objective"]:checked')?.value || ''} ${document.getElementById("objective").value} ปีงบประมาณ 25...... จำนวน ${document.getElementById('totalItems').textContent} รายการ`, pageWidth /2, y, { align: 'center' });
+    doc.text(`สำหรับ${document.querySelector('input[name="objective"]:checked')?.value || ''} ${document.getElementById("objective").value} ปีงบประมาณ 25.......... จำนวน ${document.getElementById('totalItems').textContent} รายการ`, pageWidth /2, y, { align: 'center' });
     y += 0.6;
     doc.text('ของคณะวิศวกรรมศาสตร์ มหาวิทยาลัยมหาสารคาม', pageWidth /2, y, { align: 'center' });
     y += 1;
     doc.setFont("THSarabunNew", "normal");
-    doc.text('ด้วยคณะวิศวกรรมศาสตร์ มหาวิทยาลัยมหาสารคาม มีความประสงค์จะดำเนินการจัดหาและขออนุมัติจัดซื้อ/ขอจ้าง/การเช่า', 3.5, y);
+    doc.text(`ด้วยคณะวิศวกรรมศาสตร์ มหาวิทยาลัยมหาสารคาม มีความประสงค์จะดำเนินการจัดหาและขออนุมัติจัด${document.querySelector('input[name = "objective"]:checked').value}`, 3.5, y);
     y += 0.6;
     const text1 = "................................. (ตามกำหนดรายละเอียดแนบท้าย) จำนวน";
     const text101 = `${Const}`
