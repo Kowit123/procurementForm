@@ -362,7 +362,7 @@ function addLastTableContent(doc, _pageWidth, currentY, _totalItems, vatInfo) {
 function preheader(doc, pageWidth, Const1, Const2, Const3, y) {
     const text1 = `รายการ ${document.querySelector('input[name = "objective"]:checked').value}`;
     const text2 = `${Const1}`;
-    const dot = '...........................................................................................................................................................................';
+    const dot = '..................................................................................................................................................................................................';
 
     const text1Width = doc.getTextWidth(text1);
 
